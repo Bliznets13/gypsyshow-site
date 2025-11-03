@@ -3,24 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Цыганский ансамбль — gypsy-show.ru</title>
-  <meta name="description" content="Цыганские песни, танцы, живой вокал. Юбилеи, корпоративы, свадьбы, крестины">
+  <title>Gypsy Show — Цыганский ансамбль</title>
+  <meta name="description" content="Цыганские песни и танцы. Живой звук. Яркое шоу на сцене и для welcome-зон. Бронирование дат — gypsy-show.ru">
 
-  <!-- Стили (оставьте верный путь, второй можно удалить) -->
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
   <!-- Canonical -->
   <link rel="canonical" href="https://www.gypsy-show.ru/">
 
-  <!-- Favicon / Apple icon -->
+  <!-- Icons -->
   <link rel="icon" href="img/favicon.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png" sizes="180x180">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#1a0615">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Цыганский ансамбль — Gypsy Show">
-  <meta property="og:description" content="Цыганские песни и танцы. Юбилеи, корпоративы, свадьбы, крестины">
+  <meta property="og:description" content="Цыганские песни и танцы. Концерты, корпоративы, свадьбы.">
   <meta property="og:image" content="https://www.gypsy-show.ru/img/cover.jpg">
   <meta property="og:url" content="https://www.gypsy-show.ru/">
   <meta property="og:type" content="website">
@@ -30,13 +29,231 @@
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Цыганский ансамбль — Gypsy Show">
-  <meta name="twitter:description" content="Цыганские песни и танцы. Юбилеи, корпоративы, свадьбы, крестины">
+  <meta name="twitter:description" content="Цыганские песни и танцы. Концерты, корпоративы, свадьбы.">
   <meta name="twitter:image" content="https://www.gypsy-show.ru/img/cover.jpg">
+
+  <style>
+    :root{
+      --header-h: 76px;
+      --bg: #0e0712;
+      --bg2: #16091c;
+      --text: #f8e9ff;
+      --muted: #d7c8de;
+      --accent: #ff365f;     /* ярко-малиновый */
+      --accent-2:#ffb703;    /* золото */
+      --accent-3:#6a4cff;    /* фиолетовый */
+      --glass: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.18);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, #2a0e3f 0%, transparent 60%),
+                                      radial-gradient(1200px 600px at 90% -20%, #3f0e2a 0%, transparent 60%),
+                                      linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+    }
+
+    /* Animated background sparkles */
+    .stars{position:fixed; inset:-10vh -10vw auto -10vw; height:70vh; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.7) 0 40%, transparent 42%) repeat,
+        radial-gradient(2px 2px at 80% 20%, rgba(255,255,255,.6) 0 40%, transparent 42%) repeat,
+        radial-gradient(1.5px 1.5px at 60% 70%, rgba(255,255,255,.5) 0 40%, transparent 42%) repeat;
+      background-size: 300px 300px, 260px 260px, 200px 200px;
+      animation: drift 60s linear infinite;
+      opacity:.35;
+    }
+    @keyframes drift{to{background-position: 300px 300px, -260px 260px, 200px -200px;}}
+
+    .container{width:min(1120px, 92%); margin-inline:auto}
+    .header{
+      position:sticky; top:0; z-index:50; height:var(--header-h);
+      backdrop-filter: blur(10px);
+      background: linear-gradient(90deg, rgba(26,6,21,.75), rgba(12,8,27,.5));
+      border-bottom:1px solid var(--border);
+    }
+    .header__wrap{display:flex; align-items:center; justify-content:space-between; height:var(--header-h); gap:20px}
+    .logo{
+      font-family:"Playfair Display", serif; font-size:28px; font-weight:700;
+      letter-spacing:.5px; color:#fff;
+      background: linear-gradient(120deg, #fff 0 30%, var(--accent-2) 45%, #fff 60%, var(--accent) 85%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      animation: sheen 5s linear infinite;
+    }
+    @keyframes sheen{0%{background-position:0%} 100%{background-position:200%}}
+
+    .nav{display:flex; gap:18px; align-items:center}
+    .nav a{
+      color:var(--muted); text-decoration:none; font-weight:600; padding:10px 12px; border-radius:12px;
+      transition: color .2s, background .2s, transform .2s;
+    }
+    .nav a:hover{color:#fff; background:var(--glass); transform:translateY(-1px)}
+    .burger{display:none; font-size:26px; border:none; background:transparent; color:#fff}
+
+    .btn{
+      --padX: 22px;
+      position:relative; display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px var(--padX); border-radius:999px; border:1px solid transparent;
+      font-weight:700; letter-spacing:.2px; text-decoration:none; cursor:pointer; overflow:hidden;
+      transition: transform .15s ease, filter .3s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 24px rgba(255, 54, 95, .25);
+      user-select:none;
+    }
+    .btn--primary{
+      color:#120510; background: linear-gradient(135deg, var(--accent) 0%, #ff6a88 35%, var(--accent-2) 100%);
+      background-size: 200% 200%; animation: gradMove 8s ease infinite;
+    }
+    .btn--outlined{
+      color:#fff; border-color: rgba(255,255,255,.35); background: transparent;
+    }
+    .btn:hover{transform: translateY(-2px); filter: brightness(1.05)}
+    .btn:active{transform: translateY(0)}
+    @keyframes gradMove{0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}}
+    /* ripple */
+    .btn span.ripple{
+      position:absolute; border-radius:50%; transform:scale(0);
+      background: rgba(255,255,255,.6); animation: ripple 600ms linear; pointer-events:none;
+    }
+    @keyframes ripple{to{transform:scale(4); opacity:0}}
+
+    .hero{
+      position:relative; padding: clamp(72px, 10vw, 120px) 0 80px;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, #3c1435 0%, transparent 60%),
+        radial-gradient(900px 500px at 100% 0%, #2b0e3f 0%, transparent 55%);
+      border-bottom: 1px solid var(--border);
+      overflow:hidden;
+    }
+    .hero::after{
+      content:""; position:absolute; inset:-40% -20% -10% -20%;
+      background: conic-gradient(from 180deg at 50% 50%, rgba(255,255,255,.08), rgba(255,0,102,.08), rgba(255,255,255,.08));
+      filter: blur(60px); opacity:.6; animation: swirl 18s linear infinite;
+      z-index:-1;
+    }
+    @keyframes swirl{to{transform: rotate(360deg)}}
+    .hero__wrap{display:grid; grid-template-columns: 1.2fr .8fr; align-items:center; gap:24px}
+    .hero__text h1{
+      font: 700 clamp(34px, 5vw, 56px) "Playfair Display", serif; margin:0 0 10px;
+      text-shadow: 0 6px 24px rgba(255, 54, 95, .35);
+    }
+    .hero__text p{margin:0 0 22px; color:var(--muted); font-size:clamp(16px, 1.6vw, 18px)}
+    .hero-ornament{
+      width:100%; aspect-ratio: 4/3; border-radius: var(--radius);
+      background: radial-gradient(120% 100% at 0% 0%, rgba(255, 183, 3,.12), transparent 60%),
+                  radial-gradient(120% 90% at 100% 0%, rgba(255, 54, 95,.15), transparent 60%),
+                  url('img/photo_01.jpg') center/cover no-repeat;
+      box-shadow: var(--shadow);
+      transform: rotate(-2deg);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(-1deg)}}
+
+    section{scroll-margin-top: calc(var(--header-h) + 16px)}
+    .section{padding: 72px 0}
+    .section h2{
+      font: 700 clamp(26px, 3.2vw, 36px) "Playfair Display", serif;
+      margin:0 0 18px; letter-spacing:.5px;
+    }
+    .section--dark{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.005));
+      border-block:1px solid var(--border);
+    }
+    .features{display:grid; gap:8px; padding-left:18px}
+    .features li{margin:0 0 4px}
+
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:28px}
+    .list{margin:0; padding-left:18px}
+    .card{
+      padding:22px; border-radius:16px; background:var(--glass); border:1px solid var(--border);
+      box-shadow: var(--shadow)
+    }
+
+    /* Video */
+    .video-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+    .video{
+      border-radius:16px; overflow:hidden; border:1px solid var(--border); background:#000; box-shadow: var(--shadow)
+    }
+    video{width:100%; height:auto; display:block; outline:none}
+
+    /* Gallery */
+    .gallery{
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:14px
+    }
+    .gallery img{
+      width:100%; height:240px; object-fit:cover; border-radius:14px; border:1px solid var(--border);
+      transform:translateZ(0); transition: transform .35s ease, box-shadow .35s ease, filter .35s ease;
+      filter:saturate(1.05) contrast(1.02);
+      box-shadow: 0 10px 20px rgba(0,0,0,.25);
+      cursor:zoom-in;
+    }
+    .gallery img:hover{transform:scale(1.03); box-shadow:0 16px 36px rgba(0,0,0,.4)}
+
+    /* Lightbox */
+    .lightbox{position:fixed; inset:0; background:rgba(6,3,10,.9); display:none; align-items:center; justify-content:center; z-index:100}
+    .lightbox img{max-width:92vw; max-height:86vh; border-radius:14px; border:1px solid var(--border); box-shadow: var(--shadow)}
+    .lightbox.show{display:flex}
+    .lightbox .close, .lightbox .prev, .lightbox .next{
+      position:absolute; top:22px; width:44px; height:44px; display:grid; place-items:center;
+      background:var(--glass); border:1px solid var(--border); color:#fff; border-radius:50%; cursor:pointer
+    }
+    .lightbox .close{right:22px}
+    .lightbox .prev{left:22px; top:calc(50% - 22px)}
+    .lightbox .next{right:22px; top:calc(50% - 22px)}
+
+    /* Contacts */
+    .contacts p{margin:.2em 0}
+    .contacts a{color:#fff; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.35)}
+    .contacts a:hover{color:var(--accent-2); border-color:transparent}
+
+    .footer{
+      padding:28px 0; border-top:1px solid var(--border); color:var(--muted); background:rgba(0,0,0,.15)
+    }
+    .footer__wrap{display:flex; justify-content:space-between; align-items:center}
+    .small{font-size:13px; opacity:.85}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform: translateY(16px); transition: all .8s cubic-bezier(.2,.8,.2,1)}
+    .reveal.in{opacity:1; transform:none}
+
+    /* Up button */
+    .to-top{
+      position:fixed; right:18px; bottom:18px; z-index:20; opacity:0; pointer-events:none; transition:opacity .3s ease, transform .2s ease;
+    }
+    .to-top.show{opacity:1; pointer-events:auto}
+    .to-top .btn{padding:12px 14px}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .nav{display:none}
+      .burger{display:block}
+      body.menu-open .nav{
+        display:flex; position:fixed; inset:var(--header-h) 0 auto 0; height:auto; padding:12px; z-index:40;
+        background: rgba(18,7,22,.96); border-bottom:1px solid var(--border); box-shadow: var(--shadow);
+        flex-direction:column; gap:6px
+      }
+      .hero__wrap{grid-template-columns:1fr}
+      .hero-ornament{order:-1; margin-bottom:14px}
+      .grid-2{grid-template-columns:1fr}
+      .video-grid{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr 1fr}
+      .gallery img{height:210px}
+    }
+    @media (max-width: 520px){
+      .gallery{grid-template-columns:1fr}
+      .gallery img{height:220px}
+    }
+  </style>
 </head>
 <body>
+  <div class="stars" aria-hidden="true"></div>
+
   <header class="header">
     <div class="container header__wrap">
-      <div class="logo">GypsyShow</div>
+      <div class="logo">Gypsy Show</div>
       <nav class="nav">
         <a href="#about">О нас</a>
         <a href="#program">Программа</a>
@@ -50,19 +267,20 @@
 
   <section class="hero">
     <div class="container hero__wrap">
-      <div class="hero__text">
+      <div class="hero__text reveal">
         <h1>Цыганский ансамбль</h1>
-        <p>Песни, танцы и огненная энергия сцены. Живой звук. 4 солиста.</p>
+        <p>Песни, танцы и энергия сцены. Живой звук. 4 солиста. Яркое шоу для любых площадок.</p>
         <a href="#contacts" class="btn btn--primary">Забронировать дату</a>
       </div>
+      <div class="hero-ornament reveal" aria-hidden="true"></div>
     </div>
   </section>
 
   <section id="about" class="section">
     <div class="container">
-      <h2>О нас</h2>
-      <p>Мы выходим к гостям с живой музыкой, танцами и яркими интерактивами. Камерные вечера и большие сцены — одинаково уверенно.</p>
-      <ul class="features">
+      <h2 class="reveal">О нас</h2>
+      <p class="reveal">Мы выходим к гостям с живой музыкой, танцами и яркими интерактивами. Камерные вечера и большие сцены — одинаково уверенно.</p>
+      <ul class="features reveal">
         <li>Живой вокал и танцы</li>
         <li>Цыганская классика и современные хиты</li>
         <li>Интерактив с залом</li>
@@ -72,9 +290,9 @@
 
   <section id="program" class="section section--dark">
     <div class="container">
-      <h2>Программа</h2>
+      <h2 class="reveal">Программа</h2>
       <div class="grid-2">
-        <div>
+        <div class="card reveal">
           <h3>Для сцены</h3>
           <ul class="list">
             <li>«Величальная»</li>
@@ -83,13 +301,13 @@
             <li>Предсказания, хоровод, фотофинал</li>
           </ul>
         </div>
-        <div>
+        <div class="card reveal">
           <h3>Для welcome/залов</h3>
           <ul class="list">
-            <li>Встреча с чаркой под "Пей до дна"</li>
-            <li>Живое исполнение цыганских песен</li>
-            <li>Интерактивы и гадания</li>
-            <li>Разнообразные программы и 3 вида костюмов</li>
+            <li>Встреча с шампанским</li>
+            <li>Короткие музыкальные включения</li>
+            <li>Лёгкие конкурсы и интерактив</li>
+            <li>Новая программа и костюмы на второй блок</li>
           </ul>
         </div>
       </div>
@@ -98,24 +316,21 @@
 
   <section id="video" class="section">
     <div class="container">
-      <h2>Видео</h2>
+      <h2 class="reveal">Видео</h2>
       <div class="video-grid">
-        <div class="video">
-          <iframe
-            src="https://rutube.ru/video/5f1048131b2d9e6d8c994b701afaf108/"
-            title="Rutube video"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="video reveal">
+          <!-- Локальный файл. Загрузите video/clip1.mp4 в репозиторий -->
+          <video controls preload="metadata" poster="img/photo_01.jpg">
+            <source src="video/clip1.mp4" type="video/mp4">
+            Ваш браузер не поддерживает тег video.
+          </video>
         </div>
-        <div class="video">
-          <iframe
-            src="https://rutube.ru/video/496b353593ead89ae3d2035bfa86bc51/"
-            frameborder="0"
-            allowfullscreen
-            loading="lazy"></iframe>
+        <div class="video reveal">
+          <!-- Локальный файл. Загрузите video/clip2.mp4 в репозиторий -->
+          <video controls preload="metadata" poster="img/photo_02.jpg">
+            <source src="video/clip2.mp4" type="video/mp4">
+            Ваш браузер не поддерживает тег video.
+          </video>
         </div>
       </div>
     </div>
@@ -123,28 +338,30 @@
 
   <section id="gallery" class="section section--dark">
     <div class="container">
-      <h2>Галерея</h2>
+      <h2 class="reveal">Галерея</h2>
       <div class="gallery">
-        <img src="img/photo_01.jpg" alt="GypsyShow 1" loading="lazy" />
-        <img src="img/photo_02.jpg" alt="GypsyShow 2" loading="lazy" />
-        <img src="img/photo_03.jpg" alt="GypsyShow 3" loading="lazy" />
-        <img src="img/photo_04.jpg" alt="GypsyShow 4" loading="lazy" />
-        <img src="img/photo_05.jpg" alt="GypsyShow 5" loading="lazy" />
-        <img src="img/photo_06.jpg" alt="GypsyShow 6" loading="lazy" />
-        <img src="img/photo_07.jpg" alt="GypsyShow 7" loading="lazy" />
-        <img src="img/photo_08.jpg" alt="GypsyShow 8" loading="lazy" />
-        <img src="img/photo_09.jpg" alt="GypsyShow 9" loading="lazy" />
+        <img class="reveal" src="img/photo_01.jpg" alt="GypsyShow 1" loading="lazy" />
+        <img class="reveal" src="img/photo_02.jpg" alt="GypsyShow 2" loading="lazy" />
+        <img class="reveal" src="img/photo_03.jpg" alt="GypsyShow 3" loading="lazy" />
+        <img class="reveal" src="img/photo_04.jpg" alt="GypsyShow 4" loading="lazy" />
+        <img class="reveal" src="img/photo_05.jpg" alt="GypsyShow 5" loading="lazy" />
+        <img class="reveal" src="img/photo_06.jpg" alt="GypsyShow 6" loading="lazy" />
       </div>
     </div>
   </section>
 
   <section id="contacts" class="section">
     <div class="container">
-      <h2>Контакты и бронирование</h2>
-      <p>Телефон: <a href="tel:+79282589678">+7 (928) 258‑96‑78</a></p>
-      <p>Телефон: <a href="tel:+79284072037">+7 (928) 407‑20‑37</a></p>
-      <p>Instagram: <a href="https://instagram.com/tsigane_na_prazdnik" target="_blank" rel="noopener">tsigane_na_prazdnik</a></p>
-      <p>ВКонтакте: <a href="https://vk.com/tsigane_na_prazdnik" target="_blank" rel="noopener">vk.com/tsigane_na_prazdnik</a></p>
+      <h2 class="reveal">Контакты и бронирование</h2>
+      <div class="contacts reveal">
+        <p>Телефон: <a href="tel:+79282589678">+7 (928) 258‑96‑78</a></p>
+        <p>Телефон: <a href="tel:+79284072037">+7 (928) 407‑20‑37</a></p>
+        <p>Instagram: <a href="https://instagram.com/tsigane_na_prazdnik" target="_blank" rel="noopener">tsigane_na_prazdnik</a></p>
+        <p>ВКонтакте: <a href="https://vk.com/tsigane_na_prazdnik" target="_blank" rel="noopener">vk.com/tsigane_na_prazdnik</a></p>
+        <div style="margin-top:14px">
+          <a href="#about" class="btn btn--primary">Посмотреть программу</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -155,11 +372,81 @@
     </div>
   </footer>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="close" aria-label="Закрыть" title="Закрыть">✕</button>
+    <button class="prev" aria-label="Назад" title="Назад">‹</button>
+    <img src="" alt="Просмотр изображения">
+    <button class="next" aria-label="Вперёд" title="Вперёд">›</button>
+  </div>
+
+  <!-- Up button -->
+  <div class="to-top"><a class="btn btn--outlined" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</a></div>
+
   <script>
+    // Ripple effect for buttons
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn');
+      if (!btn) return;
+      const old = btn.querySelector('.ripple'); if (old) old.remove();
+      const rect = btn.getBoundingClientRect();
+      const d = Math.max(btn.clientWidth, btn.clientHeight);
+      const x = e.clientX - rect.left - d / 2;
+      const y = e.clientY - rect.top - d / 2;
+      const span = document.createElement('span');
+      span.className = 'ripple';
+      span.style.width = span.style.height = d + 'px';
+      span.style.left = x + 'px';
+      span.style.top = y + 'px';
+      btn.appendChild(span);
+      setTimeout(()=>span.remove(), 650);
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((en)=>{
+        if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {rootMargin: '0px 0px -10% 0px', threshold: .15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Lightbox for gallery
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    const imgs = [...document.querySelectorAll('.gallery img')];
+    let idx = 0;
+    function openLb(i){
+      idx = i; lbImg.src = imgs[idx].src; lb.classList.add('show'); document.body.style.overflow='hidden';
+    }
+    function closeLb(){ lb.classList.remove('show'); document.body.style.overflow=''; }
+    function navLb(dir){
+      idx = (idx + dir + imgs.length) % imgs.length; lbImg.src = imgs[idx].src;
+    }
+    imgs.forEach((img, i)=> img.addEventListener('click', ()=>openLb(i)));
+    lb.querySelector('.close').addEventListener('click', closeLb);
+    lb.querySelector('.prev').addEventListener('click', ()=>navLb(-1));
+    lb.querySelector('.next').addEventListener('click', ()=>navLb(1));
+    lb.addEventListener('click', (e)=>{ if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', (e)=>{
+      if (!lb.classList.contains('show')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowRight') navLb(1);
+      if (e.key === 'ArrowLeft') navLb(-1);
+    });
+
+    // Show "to top" button and header behavior
+    const toTop = document.querySelector('.to-top');
+    window.addEventListener('scroll', ()=>{
+      const y = window.scrollY || document.documentElement.scrollTop;
+      toTop.classList.toggle('show', y > 600);
+    });
+
+    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.header') && document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
       }
+      if (e.target.matches('.nav a')) document.body.classList.remove('menu-open');
     });
   </script>
 </body>
