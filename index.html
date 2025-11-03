@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gypsy Show — Цыганский ансамбль</title>
-  <meta name="description" content="Цыганские песни и танцы. Живой звук. Яркое шоу на любой праздник. Бронирование дат — gypsy-show.ru">
+  <title>Цыгане на праздник — Цыгане на праздник</title>
+  <meta name="description" content="Цыгане на праздник. Цыганские песни и танцы, живой звук, яркое шоу. Бронирование дат — gypsy-show.ru">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -16,17 +16,17 @@
   <meta name="theme-color" content="#100612">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Цыганский ансамбль — Gypsy Show">
+  <meta property="og:title" content="Цыгане на праздник — Цыгане на праздник">
   <meta property="og:description" content="Цыганские песни и танцы. Концерты, корпоративы, свадьбы.">
   <meta property="og:image" content="https://www.gypsy-show.ru/img/cover.jpg">
   <meta property="og:url" content="https://www.gypsy-show.ru/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Gypsy Show">
+  <meta property="og:site_name" content="Цыгане на праздник">
   <meta property="og:locale" content="ru_RU">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Цыганский ансамбль — Gypsy Show">
+  <meta name="twitter:title" content="Цыгане на праздник — Цыгане на праздник">
   <meta name="twitter:description" content="Цыганские песни и танцы. Концерты, корпоративы, свадьбы.">
   <meta name="twitter:image" content="https://www.gypsy-show.ru/img/cover.jpg">
 
@@ -38,7 +38,6 @@
       --gold:#ffb703; --rose:#ff3d6a; --violet:#7a4dff; --cyan:#2bf5ff; --amber:#ff7b00;
       --glass: rgba(255,255,255,.06); --border: rgba(255,255,255,.18);
       --radius:18px; --shadow: 0 12px 40px rgba(0,0,0,.45);
-      --mx:50%; --my:50%;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -56,27 +55,15 @@
     /* Scroll progress */
     .progress{position:fixed; top:0; left:0; height:3px; width:0%; background: linear-gradient(90deg, var(--rose), var(--gold), var(--violet)); z-index:1000; box-shadow:0 0 12px rgba(255,255,255,.4)}
 
-    /* Luxe cursor */
-    .cursor-dot,.cursor-ring{
-      position:fixed; left:0; top:0; pointer-events:none; z-index:999; transform:translate(-50%,-50%);
-      transition:opacity .3s ease;
+    /* Simplified custom cursor */
+    .cursor{
+      position:fixed; left:0; top:0; width:22px; height:22px; border-radius:50%;
+      border:1px solid rgba(255,255,255,.55); box-shadow:0 0 10px rgba(255,255,255,.25);
+      transform:translate(-50%,-50%); pointer-events:none; z-index:999;
+      transition: transform .04s linear, opacity .3s ease;
+      mix-blend-mode:screen; opacity:.9;
     }
-    .cursor-dot{width:6px;height:6px;border-radius:50%; background:radial-gradient(circle, #fff 0, #fff6 60%, transparent 70%);}
-    .cursor-ring{width:44px;height:44px;border-radius:50%;
-      background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,.15), rgba(255,255,255,0) 60%),
-                  conic-gradient(from 0deg, rgba(255,61,106,.5), rgba(255,183,3,.35), rgba(123,77,255,.45), rgba(43,245,255,.35), rgba(255,61,106,.5));
-      filter: blur(.2px); mix-blend-mode: screen; opacity:.85;
-    }
-    .cursor-hide .cursor-dot,.cursor-hide .cursor-ring{opacity:0}
-
-    /* Ambient aura following mouse */
-    .aura{
-      position:fixed; inset:0; pointer-events:none; z-index:-1;
-      background:
-        radial-gradient(650px 650px at var(--mx) var(--my), rgba(255,61,106,.10), rgba(255,183,3,.08) 35%, transparent 60%),
-        radial-gradient(520px 520px at calc(100% - var(--mx)) calc(100% - var(--my)), rgba(122,77,255,.10), rgba(43,245,255,.08) 35%, transparent 60%);
-      transition: background 120ms ease-out;
-    }
+    .cursor-hide .cursor{opacity:0}
 
     /* Header */
     .header{
@@ -138,46 +125,42 @@
     .section[data-theme="cyan-violet"]{--acc1:var(--cyan);  --acc2:var(--violet);--acc3:var(--rose)}
     .section[data-theme="gold-rose"]  {--acc1:var(--gold);  --acc2:var(--rose);  --acc3:var(--violet)}
 
-    /* Distinct colored backgrounds per section + animated stripes on reveal */
     .section.themed::before{
       content:""; position:absolute; inset:-20% -10%; z-index:-1; filter: blur(60px); opacity:.55;
-      background: conic-gradient(from 180deg at 30% 40%, color-mix(in oklab, var(--acc1) 60%, transparent), color-mix(in oklab, var(--acc2) 55%, transparent), color-mix(in oklab, var(--acc3) 50%, transparent), transparent);
+      background: conic-gradient(from 180deg at 30% 40%, rgba(255,61,106,.22), rgba(255,183,3,.2), rgba(122,77,255,.2), rgba(43,245,255,.18), rgba(255,61,106,.22));
       animation: spin 28s linear infinite;
     }
     .section.themed::after{
       content:""; position:absolute; left:-30vw; right:-30vw; top:0; height:2px; opacity:.7;
       background: linear-gradient(90deg, var(--acc1), var(--acc2), var(--acc3));
-      transform: translateX(-30vw);
-      transition: transform 1s ease .2s;
+      transform: translateX(-30vw); transition: transform 1s ease .2s;
     }
     .section.in::after{transform: translateX(30vw)}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* Section titles centered, bigger, with luxe underline */
     .section h2{
       text-align:center;
       font: 700 clamp(34px, 5vw, 64px) "Playfair Display", serif; margin:0 0 20px;
       background: linear-gradient(120deg, #fff 0%, #fff 40%, var(--acc1) 60%, var(--acc2) 80%); -webkit-background-clip:text; background-clip:text; color:transparent;
     }
     .section h2::after{
-      content:""; display:block; width:min(220px, 40%); height:4px; margin:14px auto 0; border-radius:999px;
-      background: linear-gradient(90deg, var(--acc1), var(--acc2)); box-shadow:0 6px 16px color-mix(in oklab, var(--acc2) 40%, transparent);
-      transform: scaleX(.6); opacity:.85; transition: transform .8s ease; 
+      content:""; display:block; width:min(240px, 40%); height:4px; margin:14px auto 0; border-radius:999px;
+      background: linear-gradient(90deg, var(--acc1), var(--acc2)); box-shadow:0 6px 16px rgba(0,0,0,.25);
+      transform: scaleX(.6); opacity:.9; transition: transform .8s ease;
     }
     .section.in h2::after{transform:scaleX(1)}
+    .sub{color:var(--muted); margin:0 auto 26px; width:min(860px, 92%); text-align:center; font-size:19px}
 
-    .sub{color:var(--muted); margin:0 auto 26px; width:min(800px, 92%); text-align:center; font-size:18.5px}
-
-    /* Hero */
+    /* Hero with bigger left column (carousel 1.5x) */
     .hero{padding: clamp(88px, 12vw, 150px) 0 100px; overflow:hidden; border-bottom:1px solid var(--border)}
-    .hero__wrap{display:grid; grid-template-columns: 1.05fr .95fr; align-items:center; gap:34px}
-    .hero__text p{margin:0 0 26px; color:var(--muted); font-size:19px}
+    .hero__wrap{display:grid; grid-template-columns: 1.5fr 1fr; align-items:center; gap:34px}
+
     /* Hero carousel */
     .hero-carousel{
       position:relative; border-radius: var(--radius); overflow:hidden; box-shadow:var(--shadow);
-      border:1px solid var(--border); background:#000; aspect-ratio: 16/10;
+      border:1px solid var(--border); background:#000; aspect-ratio: 16/9;
     }
-    .hero-carousel .track{display:flex; width:100%; height:100%; transition: transform .9s cubic-bezier(.2,.8,.2,1)}
+    .hero-carousel .track{display:flex; width:100%; height:100%; transition: transform .8s cubic-bezier(.2,.8,.2,1)}
     .hero-carousel .slide{min-width:100%; height:100%}
     .hero-carousel img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.1) contrast(1.05)}
     .hero-carousel .nav{
@@ -185,18 +168,17 @@
       background: rgba(0,0,0,.25); padding:6px 8px; border-radius:999px; border:1px solid var(--border); backdrop-filter: blur(6px);
     }
     .hero-carousel .dot{
-      width:10px; height:10px; border-radius:50%;
-      background:rgba(255,255,255,.5); box-shadow:0 0 0 1px rgba(255,255,255,.35) inset;
+      width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); box-shadow:0 0 0 1px rgba(255,255,255,.35) inset;
       transition:transform .2s, background .2s;
     }
-    .hero-carousel .dot.active{background: linear-gradient(135deg, var(--acc1), var(--acc2)); transform:scale(1.25)}
+    .hero-carousel .dot.active{background: linear-gradient(135deg, var(--rose), var(--gold)); transform:scale(1.25)}
 
     /* Cards / grids */
     .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:30px}
     .card{padding:26px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid var(--border); box-shadow:var(--shadow); position:relative; overflow:hidden}
     .card::before{
       content:""; position:absolute; inset:-1px; border-radius:inherit; z-index:0;
-      background: conic-gradient(from 0deg at 50% 50%, color-mix(in oklab, var(--acc1) 65%, transparent), color-mix(in oklab, var(--acc2) 55%, transparent), color-mix(in oklab, var(--acc3) 50%, transparent), transparent);
+      background: conic-gradient(from 0deg at 50% 50%, rgba(255,61,106,.35), rgba(255,183,3,.3), rgba(122,77,255,.3), rgba(43,245,255,.22), rgba(255,61,106,.35));
       filter: blur(12px); opacity:.25; pointer-events:none;
       mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude; padding:1px;
@@ -206,10 +188,15 @@
     .features{display:grid; gap:10px; padding-left:20px}
     .tilt{transform-style:preserve-3d; perspective:1000px; will-change:transform; transition:transform .12s ease}
 
-    /* Video */
-    .video-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+    /* VIDEO: 3 колонки × 2 ряда, вертикальные 9:16 */
+    .video-grid{
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;
+    }
     .video{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#000; box-shadow:var(--shadow)}
-    video{width:100%; height:auto; display:block; outline:none}
+    .video-vert{ aspect-ratio: 9 / 16; } /* вертикальная рамка */
+    .video-vert video{
+      width:100%; height:100%; object-fit:cover; display:block; outline:none;
+    }
 
     /* Gallery larger */
     .gallery{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
@@ -255,9 +242,17 @@
     .to-top.show{opacity:1; pointer-events:auto}
 
     /* Responsive */
-    @media (max-width: 1000px){
+    @media (max-width: 1200px){
+      .video-grid{grid-template-columns: repeat(3, 1fr);}
+    }
+    @media (max-width: 980px){
       .hero__wrap{grid-template-columns:1fr}
-      .hero-carousel{order:-1}
+      .video-grid{grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width: 680px){
+      .video-grid{grid-template-columns: 1fr;}
+      .gallery{grid-template-columns:1fr}
+      .gallery img{height:360px}
     }
     @media (max-width: 900px){
       .nav{display:none}
@@ -268,9 +263,6 @@
         flex-direction:column; gap:8px
       }
       .grid-2{grid-template-columns:1fr}
-      .video-grid{grid-template-columns:1fr}
-      .gallery{grid-template-columns:1fr}
-      .gallery img{height:360px}
     }
     @media (prefers-reduced-motion: reduce){
       *{animation: none !important; transition:none !important}
@@ -280,13 +272,11 @@
 </head>
 <body>
   <div class="progress" id="progress"></div>
-  <div class="aura" id="aura"></div>
-  <div class="cursor-dot" id="cDot"></div>
-  <div class="cursor-ring" id="cRing"></div>
+  <div class="cursor" id="cursor"></div>
 
   <header class="header">
     <div class="container header__wrap">
-      <div class="logo">Gypsy Show</div>
+      <div class="logo">Цыгане на праздник</div>
       <nav class="nav">
         <a href="#about">О нас</a>
         <a href="#program">Программа</a>
@@ -301,26 +291,27 @@
   <!-- HERO -->
   <section class="section themed hero" id="top" data-theme="rose-gold">
     <div class="container hero__wrap">
-      <div class="hero__text reveal">
-        <h1 style="text-align:center; margin-bottom:10px;">Цыганский ансамбль</h1>
-        <p style="text-align:center;">Песни, танцы и энергия сцены. Живой звук. 4 солиста. Яркое шоу для любых площадок.</p>
-        <div style="text-align:center;"><a href="#contacts" class="btn btn--primary">Забронировать дату</a></div>
-      </div>
-
-      <!-- Карусель с фотографиями из папки img -->
+      <!-- Карусель фото (слева) -->
       <div class="hero-carousel reveal tilt" data-tilt id="heroCarousel" aria-label="Фото карусель">
         <div class="track">
-          <div class="slide"><img src="img/photo_01.jpg" alt="Gypsy Show 1"></div>
-          <div class="slide"><img src="img/photo_02.jpg" alt="Gypsy Show 2"></div>
-          <div class="slide"><img src="img/photo_03.jpg" alt="Gypsy Show 3"></div>
-          <div class="slide"><img src="img/photo_04.jpg" alt="Gypsy Show 4"></div>
-          <div class="slide"><img src="img/photo_05.jpg" alt="Gypsy Show 5"></div>
-          <div class="slide"><img src="img/photo_06.jpg" alt="Gypsy Show 6"></div>
+          <div class="slide"><img src="img/photo_01.jpg" alt="Цыгане на праздник 1"></div>
+          <div class="slide"><img src="img/photo_02.jpg" alt="Цыгане на праздник 2"></div>
+          <div class="slide"><img src="img/photo_03.jpg" alt="Цыгане на праздник 3"></div>
+          <div class="slide"><img src="img/photo_04.jpg" alt="Цыгане на праздник 4"></div>
+          <div class="slide"><img src="img/photo_05.jpg" alt="Цыгане на праздник 5"></div>
+          <div class="slide"><img src="img/photo_06.jpg" alt="Цыгане на праздник 6"></div>
         </div>
         <div class="nav" aria-hidden="true">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         </div>
+      </div>
+
+      <!-- Текст справа -->
+      <div class="hero__text reveal">
+        <h1 style="text-align:center; margin-bottom:10px;">Цыгане на праздник</h1>
+        <p style="text-align:center;">Песни, танцы и энергия сцены. Живой звук. 4 солиста. Яркое шоу для любых площадок.</p>
+        <div style="text-align:center;"><a href="#contacts" class="btn btn--primary">Забронировать дату</a></div>
       </div>
     </div>
   </section>
@@ -365,20 +356,44 @@
     </div>
   </section>
 
-  <!-- VIDEO -->
+  <!-- VIDEO: 6 вертикальных роликов -->
   <section id="video" class="section themed" data-theme="rose-violet">
     <div class="container">
       <h2>Видео</h2>
       <div class="video-grid">
-        <div class="video reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_01.jpg">
+        <div class="video video-vert reveal tilt" data-tilt>
+          <video controls preload="metadata" poster="img/photo_01.jpg" playsinline>
             <source src="video/clip1.mp4" type="video/mp4">
             Ваш браузер не поддерживает тег video.
           </video>
         </div>
-        <div class="video reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_02.jpg">
+        <div class="video video-vert reveal tilt" data-tilt>
+          <video controls preload="metadata" poster="img/photo_02.jpg" playsinline>
             <source src="video/clip2.mp4" type="video/mp4">
+            Ваш браузер не поддерживает тег video.
+          </video>
+        </div>
+        <div class="video video-vert reveal tilt" data-tilt>
+          <video controls preload="metadata" poster="img/photo_03.jpg" playsinline>
+            <source src="video/clip3.mp4" type="video/mp4">
+            Ваш браузер не поддерживает тег video.
+          </video>
+        </div>
+        <div class="video video-vert reveal tilt" data-tilt>
+          <video controls preload="metadata" poster="img/photo_04.jpg" playsinline>
+            <source src="video/clip4.mp4" type="video/mp4">
+            Ваш браузер не поддерживает тег video.
+          </video>
+        </div>
+        <div class="video video-vert reveal tilt" data-tilt>
+          <video controls preload="metadata" poster="img/photo_05.jpg" playsinline>
+            <source src="video/clip5.mp4" type="video/mp4">
+            Ваш браузер не поддерживает тег video.
+          </video>
+        </div>
+        <div class="video video-vert reveal tilt" data-tilt>
+          <video controls preload="metadata" poster="img/photo_06.jpg" playsinline>
+            <source src="video/clip6.mp4" type="video/mp4">
             Ваш браузер не поддерживает тег video.
           </video>
         </div>
@@ -391,12 +406,12 @@
     <div class="container">
       <h2>Галерея</h2>
       <div class="gallery">
-        <img class="reveal" src="img/photo_01.jpg" alt="GypsyShow 1" loading="lazy" />
-        <img class="reveal" src="img/photo_02.jpg" alt="GypsyShow 2" loading="lazy" />
-        <img class="reveal" src="img/photo_03.jpg" alt="GypsyShow 3" loading="lazy" />
-        <img class="reveal" src="img/photo_04.jpg" alt="GypsyShow 4" loading="lazy" />
-        <img class="reveal" src="img/photo_05.jpg" alt="GypsyShow 5" loading="lazy" />
-        <img class="reveal" src="img/photo_06.jpg" alt="GypsyShow 6" loading="lazy" />
+        <img class="reveal" src="img/photo_01.jpg" alt="Цыгане на праздник — фото 1" loading="lazy" />
+        <img class="reveal" src="img/photo_02.jpg" alt="Цыгане на праздник — фото 2" loading="lazy" />
+        <img class="reveal" src="img/photo_03.jpg" alt="Цыгане на праздник — фото 3" loading="lazy" />
+        <img class="reveal" src="img/photo_04.jpg" alt="Цыгане на праздник — фото 4" loading="lazy" />
+        <img class="reveal" src="img/photo_05.jpg" alt="Цыгане на праздник — фото 5" loading="lazy" />
+        <img class="reveal" src="img/photo_06.jpg" alt="Цыгане на праздник — фото 6" loading="lazy" />
       </div>
     </div>
   </section>
@@ -443,7 +458,7 @@
   <script>
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Progress bar + toTop visibility + section stripe animation
+    // Progress bar + toTop
     const progress = document.getElementById('progress');
     const sections = document.querySelectorAll('.section');
     const onScroll = () => {
@@ -454,7 +469,7 @@
     };
     onScroll(); window.addEventListener('scroll', onScroll);
 
-    // Ripple for buttons
+    // Button ripple
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.btn');
       if (!btn) return;
@@ -467,7 +482,7 @@
       btn.appendChild(s); setTimeout(()=>s.remove(), 650);
     });
 
-    // Reveal on scroll + add 'in' to sections for stripe animation
+    // Reveal on scroll + section stripe
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((en)=>{
         if (en.isIntersecting){
@@ -481,44 +496,29 @@
     }, {rootMargin:'0px 0px -12% 0px', threshold:.18});
     sections.forEach(sec=>io.observe(sec));
 
-    // Custom cursor + aura following mouse
-    const cDot = document.getElementById('cDot');
-    const cRing = document.getElementById('cRing');
-    let cx = innerWidth/2, cy = innerHeight/2, tx = cx, ty = cy;
-    function raf(){
-      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
-      cRing.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
-      cDot.style.transform  = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // Simplified cursor
+    const cursor = document.getElementById('cursor');
     window.addEventListener('mousemove', (e)=>{
-      tx = e.clientX; ty = e.clientY;
-      document.documentElement.style.setProperty('--mx', e.clientX + 'px');
-      document.documentElement.style.setProperty('--my', e.clientY + 'px');
+      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%,-50%)`;
     }, {passive:true});
-    ['mousedown','mouseleave','blur'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.add('cursor-hide')));
-    ['mouseup','mouseenter','focus'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.remove('cursor-hide')));
-    document.querySelectorAll('a, button, .btn, .gallery img').forEach(el=>{
-      el.addEventListener('mouseenter', ()=> cRing.style.transform += ' scale(1.15)');
-      el.addEventListener('mouseleave', ()=> cRing.style.transform = cRing.style.transform.replace(' scale(1.15)',''));
-    });
+    ['mouseleave','blur','mousedown'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.add('cursor-hide')));
+    ['mouseenter','focus','mouseup'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.remove('cursor-hide')));
 
-    // Parallax tilt for [data-tilt]
+    // Parallax tilt (lightweight)
     if (!reduced){
       document.querySelectorAll('[data-tilt]').forEach(el=>{
         el.addEventListener('mousemove', (e)=>{
           const r = el.getBoundingClientRect();
           const x = e.clientX - r.left; const y = e.clientY - r.top;
-          const rx = ((y / r.height) - .5) * -8;
-          const ry = ((x / r.width) - .5) * 8;
+          const rx = ((y / r.height) - .5) * -6;
+          const ry = ((x / r.width) - .5) * 6;
           el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
         });
         el.addEventListener('mouseleave', ()=> el.style.transform='perspective(900px) rotateX(0) rotateY(0)');
       });
     }
 
-    // HERO CAROUSEL (slides every 3s, pause on hover, swipe on touch)
+    // HERO CAROUSEL (autoplay every 2s, pause on hover, swipe)
     (function(){
       const root = document.getElementById('heroCarousel');
       if (!root) return;
@@ -529,11 +529,11 @@
 
       function go(n, instant=false){
         i = (n + N) % N;
-        track.style.transition = instant ? 'none' : 'transform .9s cubic-bezier(.2,.8,.2,1)';
+        track.style.transition = instant ? 'none' : 'transform .8s cubic-bezier(.2,.8,.2,1)';
         track.style.transform = `translateX(-${i*100}%)`;
         dots.forEach((d,k)=>d.classList.toggle('active', k===i));
       }
-      function play(){ stop(); timer = setInterval(()=>go(i+1), 3000); }
+      function play(){ stop(); timer = setInterval(()=>go(i+1), 2000); } // каждые 2 секунды
       function stop(){ if (timer) clearInterval(timer); }
 
       dots.forEach((d,k)=> d.addEventListener('click', ()=>{ go(k); play(); }));
@@ -574,6 +574,7 @@
     document.getElementById('lbZoomIn').addEventListener('click', ()=>{ scale = clamp(scale+0.25, 1, 4); applyTransform(); });
     document.getElementById('lbZoomOut').addEventListener('click', ()=>{ scale = clamp(scale-0.25, 1, 4); if(scale===1){pos.x=pos.y=0} applyTransform(); });
     document.getElementById('lbZoomReset').addEventListener('click', ()=>{ resetZoom(); });
+
     lb.addEventListener('wheel', (e)=>{
       if (!lb.classList.contains('show')) return;
       e.preventDefault();
@@ -593,7 +594,7 @@
     lbImg.addEventListener('touchmove', (e)=>{ if (!dragging) return; const t=e.touches[0]; pos.x=t.clientX-start.x; pos.y=t.clientY-start.y; applyTransform(); }, {passive:true});
     lbImg.addEventListener('touchend', ()=> dragging=false);
 
-    // Close mobile menu on link click / outside
+    // Close mobile menu
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.header') && document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
