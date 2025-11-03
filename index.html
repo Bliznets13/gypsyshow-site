@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gypsy Show — Цыганский ансамбль</title>
-  <meta name="description" content="Цыганские песни и танцы. Живой звук. Яркое шоу на сцене и для welcome-зон. Бронирование дат — gypsy-show.ru">
+  <meta name="description" content="Цыганские песни и танцы. Живой звук. Яркое шоу на любой праздник. Бронирование дат — gypsy-show.ru">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -38,14 +38,14 @@
       --gold:#ffb703; --rose:#ff3d6a; --violet:#7a4dff; --cyan:#2bf5ff; --amber:#ff7b00;
       --glass: rgba(255,255,255,.06); --border: rgba(255,255,255,.18);
       --radius:18px; --shadow: 0 12px 40px rgba(0,0,0,.45);
-      --mx:50%; --my:50%; /* mouse position (JS updates) */
+      --mx:50%; --my:50%;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0; color:var(--text);
       font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height:1.6;
+      line-height:1.7; font-size:17.5px;
       background:
         radial-gradient(1200px 700px at 0% 0%, #2d0e41 0%, transparent 60%),
         radial-gradient(900px 600px at 100% 0%, #3c0e2c 0%, transparent 60%),
@@ -53,9 +53,10 @@
       overflow-x:hidden;
     }
 
-    /* Top progress bar */
+    /* Scroll progress */
     .progress{position:fixed; top:0; left:0; height:3px; width:0%; background: linear-gradient(90deg, var(--rose), var(--gold), var(--violet)); z-index:1000; box-shadow:0 0 12px rgba(255,255,255,.4)}
-    /* Luxury cursor */
+
+    /* Luxe cursor */
     .cursor-dot,.cursor-ring{
       position:fixed; left:0; top:0; pointer-events:none; z-index:999; transform:translate(-50%,-50%);
       transition:opacity .3s ease;
@@ -64,16 +65,16 @@
     .cursor-ring{width:44px;height:44px;border-radius:50%;
       background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,.15), rgba(255,255,255,0) 60%),
                   conic-gradient(from 0deg, rgba(255,61,106,.5), rgba(255,183,3,.35), rgba(123,77,255,.45), rgba(43,245,255,.35), rgba(255,61,106,.5));
-      filter: blur(.2px); mix-blend-mode: screen; opacity:.8;
+      filter: blur(.2px); mix-blend-mode: screen; opacity:.85;
     }
     .cursor-hide .cursor-dot,.cursor-hide .cursor-ring{opacity:0}
 
-    /* Animated ambience following cursor */
+    /* Ambient aura following mouse */
     .aura{
       position:fixed; inset:0; pointer-events:none; z-index:-1;
       background:
-        radial-gradient(600px 600px at var(--mx) var(--my), rgba(255,61,106,.10), rgba(255,183,3,.08) 35%, transparent 60%),
-        radial-gradient(500px 500px at calc(100% - var(--mx)) calc(100% - var(--my)), rgba(122,77,255,.10), rgba(43,245,255,.08) 35%, transparent 60%);
+        radial-gradient(650px 650px at var(--mx) var(--my), rgba(255,61,106,.10), rgba(255,183,3,.08) 35%, transparent 60%),
+        radial-gradient(520px 520px at calc(100% - var(--mx)) calc(100% - var(--my)), rgba(122,77,255,.10), rgba(43,245,255,.08) 35%, transparent 60%);
       transition: background 120ms ease-out;
     }
 
@@ -84,10 +85,10 @@
       background: linear-gradient(90deg, rgba(12,6,17,.8), rgba(15,7,26,.55));
       border-bottom:1px solid var(--border);
     }
-    .container{width:min(1160px, 92%); margin-inline:auto}
+    .container{width:min(1200px, 92%); margin-inline:auto}
     .header__wrap{display:flex; align-items:center; justify-content:space-between; gap:20px; height:var(--header-h)}
     .logo{
-      font: 700 28px "Playfair Display", serif; letter-spacing:.5px;
+      font: 700 30px "Playfair Display", serif; letter-spacing:.5px;
       background: linear-gradient(120deg, #fff 20%, var(--gold) 45%, #fff 65%, var(--rose) 85%);
       -webkit-background-clip:text; background-clip:text; color:transparent; animation:sheen 6s linear infinite;
     }
@@ -108,12 +109,12 @@
 
     /* Buttons */
     .btn{
-      --padX:22px;
+      --padX:24px;
       position:relative; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; user-select:none;
-      padding:12px var(--padX); border-radius:999px; border:1px solid transparent; text-decoration:none; font-weight:700; letter-spacing:.2px;
+      padding:13px var(--padX); border-radius:999px; border:1px solid transparent; text-decoration:none; font-weight:700; letter-spacing:.2px;
       transition: transform .12s ease, filter .25s ease, box-shadow .25s ease;
       box-shadow: 0 10px 26px rgba(255, 61, 106, .28);
-      overflow:hidden; isolation:isolate;
+      overflow:hidden; isolation:isolate; font-size:17px;
     }
     .btn--primary{
       color:#120510; background: linear-gradient(135deg, var(--rose) 0%, #ff6e8e 35%, var(--gold) 100%);
@@ -126,82 +127,101 @@
     .btn span.ripple{position:absolute; border-radius:50%; transform:scale(0); background:rgba(255,255,255,.6); animation:ripple 600ms linear; pointer-events:none}
     @keyframes ripple{to{transform:scale(4); opacity:0}}
 
-    /* Sections */
+    /* Section theming */
     section{scroll-margin-top: calc(var(--header-h) + 16px)}
-    .section{padding:84px 0; position:relative}
-    .section h2{font:700 clamp(28px, 3.2vw, 38px) "Playfair Display", serif; margin:0 0 18px}
-    .sub{color:var(--muted); margin:0 0 20px}
+    .section{padding:96px 0; position:relative}
+    .section[data-theme]{--acc1: var(--rose); --acc2: var(--gold); --acc3: var(--violet)}
+    .section[data-theme="rose-gold"] {--acc1:var(--rose);   --acc2:var(--gold);  --acc3:var(--violet)}
+    .section[data-theme="violet-cyan"]{--acc1:var(--violet);--acc2:var(--cyan);  --acc3:var(--rose)}
+    .section[data-theme="gold-amber"] {--acc1:var(--gold);  --acc2:var(--amber); --acc3:var(--rose)}
+    .section[data-theme="rose-violet"]{--acc1:var(--rose);  --acc2:var(--violet);--acc3:var(--gold)}
+    .section[data-theme="cyan-violet"]{--acc1:var(--cyan);  --acc2:var(--violet);--acc3:var(--rose)}
+    .section[data-theme="gold-rose"]  {--acc1:var(--gold);  --acc2:var(--rose);  --acc3:var(--violet)}
 
-    /* Section backgrounds with aurora stripes */
-    .aura-bg::before{
+    /* Distinct colored backgrounds per section + animated stripes on reveal */
+    .section.themed::before{
       content:""; position:absolute; inset:-20% -10%; z-index:-1; filter: blur(60px); opacity:.55;
-      background:
-        conic-gradient(from 180deg at 30% 40%, rgba(255,183,3,.21), rgba(255,61,106,.22), rgba(122,77,255,.22), rgba(43,245,255,.18), rgba(255,183,3,.21));
-      animation: spin 24s linear infinite;
+      background: conic-gradient(from 180deg at 30% 40%, color-mix(in oklab, var(--acc1) 60%, transparent), color-mix(in oklab, var(--acc2) 55%, transparent), color-mix(in oklab, var(--acc3) 50%, transparent), transparent);
+      animation: spin 28s linear infinite;
     }
-    .aura-bg::after{
-      content:""; position:absolute; inset:0; z-index:-2; pointer-events:none; opacity:.12; mix-blend-mode: overlay;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0 0"/></filter><rect width="1200" height="1200" filter="url(%23n)" /></svg>');
-      background-size: 500px 500px;
-      animation: drift 60s linear infinite;
+    .section.themed::after{
+      content:""; position:absolute; left:-30vw; right:-30vw; top:0; height:2px; opacity:.7;
+      background: linear-gradient(90deg, var(--acc1), var(--acc2), var(--acc3));
+      transform: translateX(-30vw);
+      transition: transform 1s ease .2s;
     }
+    .section.in::after{transform: translateX(30vw)}
     @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes drift{to{background-position:300px 400px}}
+
+    /* Section titles centered, bigger, with luxe underline */
+    .section h2{
+      text-align:center;
+      font: 700 clamp(34px, 5vw, 64px) "Playfair Display", serif; margin:0 0 20px;
+      background: linear-gradient(120deg, #fff 0%, #fff 40%, var(--acc1) 60%, var(--acc2) 80%); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .section h2::after{
+      content:""; display:block; width:min(220px, 40%); height:4px; margin:14px auto 0; border-radius:999px;
+      background: linear-gradient(90deg, var(--acc1), var(--acc2)); box-shadow:0 6px 16px color-mix(in oklab, var(--acc2) 40%, transparent);
+      transform: scaleX(.6); opacity:.85; transition: transform .8s ease; 
+    }
+    .section.in h2::after{transform:scaleX(1)}
+
+    .sub{color:var(--muted); margin:0 auto 26px; width:min(800px, 92%); text-align:center; font-size:18.5px}
 
     /* Hero */
-    .hero{padding: clamp(84px, 12vw, 144px) 0 96px; overflow:hidden; border-bottom:1px solid var(--border)}
-    .hero__wrap{display:grid; grid-template-columns: 1.1fr .9fr; align-items:center; gap:28px}
-    .hero__text h1{
-      margin:0 0 8px; font: 700 clamp(36px, 6vw, 64px) "Playfair Display", serif;
-      background: linear-gradient(120deg, #fff 0%, #fff 40%, var(--gold) 60%, #fff 80%); -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-shadow:0 8px 28px rgba(255,61,106,.32);
-      animation:sheen 7s linear infinite;
+    .hero{padding: clamp(88px, 12vw, 150px) 0 100px; overflow:hidden; border-bottom:1px solid var(--border)}
+    .hero__wrap{display:grid; grid-template-columns: 1.05fr .95fr; align-items:center; gap:34px}
+    .hero__text p{margin:0 0 26px; color:var(--muted); font-size:19px}
+    /* Hero carousel */
+    .hero-carousel{
+      position:relative; border-radius: var(--radius); overflow:hidden; box-shadow:var(--shadow);
+      border:1px solid var(--border); background:#000; aspect-ratio: 16/10;
     }
-    .hero__text p{margin:0 0 24px; color:var(--muted); font-size:clamp(16px,1.5vw,18px)}
-    .hero-ornament{
-      width:100%; aspect-ratio: 4/3; border-radius: var(--radius);
-      background: radial-gradient(120% 100% at 0% 0%, rgba(255, 183, 3,.14), transparent 60%),
-                  radial-gradient(120% 90% at 100% 0%, rgba(255, 61, 106,.16), transparent 60%),
-                  url('img/photo_01.jpg') center/cover no-repeat;
-      box-shadow: var(--shadow);
-      transform: translateZ(0) rotate(-2deg);
-      animation: float 6s ease-in-out infinite;
-      will-change: transform;
+    .hero-carousel .track{display:flex; width:100%; height:100%; transition: transform .9s cubic-bezier(.2,.8,.2,1)}
+    .hero-carousel .slide{min-width:100%; height:100%}
+    .hero-carousel img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.1) contrast(1.05)}
+    .hero-carousel .nav{
+      position:absolute; inset:auto 12px 12px auto; display:flex; gap:8px; z-index:2;
+      background: rgba(0,0,0,.25); padding:6px 8px; border-radius:999px; border:1px solid var(--border); backdrop-filter: blur(6px);
     }
-    @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(-1deg)}}
+    .hero-carousel .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:rgba(255,255,255,.5); box-shadow:0 0 0 1px rgba(255,255,255,.35) inset;
+      transition:transform .2s, background .2s;
+    }
+    .hero-carousel .dot.active{background: linear-gradient(135deg, var(--acc1), var(--acc2)); transform:scale(1.25)}
 
-    /* Features / Cards */
-    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:28px}
-    .card{padding:24px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid var(--border); box-shadow:var(--shadow); position:relative; overflow:hidden}
+    /* Cards / grids */
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:30px}
+    .card{padding:26px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid var(--border); box-shadow:var(--shadow); position:relative; overflow:hidden}
     .card::before{
       content:""; position:absolute; inset:-1px; border-radius:inherit; z-index:0;
-      background: conic-gradient(from 0deg at 50% 50%, rgba(255,61,106,.35), rgba(255,183,3,.35), rgba(122,77,255,.35), rgba(43,245,255,.25), rgba(255,61,106,.35));
+      background: conic-gradient(from 0deg at 50% 50%, color-mix(in oklab, var(--acc1) 65%, transparent), color-mix(in oklab, var(--acc2) 55%, transparent), color-mix(in oklab, var(--acc3) 50%, transparent), transparent);
       filter: blur(12px); opacity:.25; pointer-events:none;
       mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-      padding:1px;
+      -webkit-mask-composite: xor; mask-composite: exclude; padding:1px;
     }
-    .card h3{margin:0 0 12px}
-    .list{margin:0; padding-left:18px}
-    .features{display:grid; gap:10px; padding-left:18px}
+    .card h3{margin:0 0 12px; font-size:22px}
+    .list{margin:0; padding-left:20px}
+    .features{display:grid; gap:10px; padding-left:20px}
     .tilt{transform-style:preserve-3d; perspective:1000px; will-change:transform; transition:transform .12s ease}
 
     /* Video */
-    .video-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+    .video-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px}
     .video{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#000; box-shadow:var(--shadow)}
     video{width:100%; height:auto; display:block; outline:none}
 
-    /* Gallery (bigger images) */
-    .gallery{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px}
+    /* Gallery larger */
+    .gallery{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
     @media(min-width:1100px){ .gallery{grid-template-columns:repeat(3, 1fr)} }
     .gallery img{
-      width:100%; height:340px; object-fit:cover; border-radius:16px; border:1px solid var(--border);
+      width:100%; height:420px; object-fit:cover; border-radius:16px; border:1px solid var(--border);
       transform:translateZ(0); transition: transform .35s ease, box-shadow .35s ease, filter .35s ease;
-      filter:saturate(1.1) contrast(1.05);
+      filter:saturate(1.12) contrast(1.06);
       box-shadow: 0 14px 30px rgba(0,0,0,.35);
       cursor:zoom-in;
     }
-    .gallery img:hover{transform:scale(1.04); box-shadow:0 22px 46px rgba(0,0,0,.5)}
+    .gallery img:hover{transform:scale(1.035); box-shadow:0 22px 46px rgba(0,0,0,.5)}
 
     /* Lightbox with Zoom */
     .lightbox{position:fixed; inset:0; background:rgba(6,3,10,.92); display:none; align-items:center; justify-content:center; z-index:100}
@@ -218,17 +238,15 @@
     .lb-prev{left:18px; top:calc(50% - 22px)}
     .lb-next{right:18px; top:calc(50% - 22px)}
 
-    /* Contacts */
-    .contacts p{margin:.25em 0}
+    /* Contacts / Footer */
+    .contacts p{margin:.35em 0; font-size:18.5px}
     .contacts a{color:#fff; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.4)}
     .contacts a:hover{color:var(--gold); border-color:transparent}
-
-    /* Footer */
     .footer{padding:30px 0; border-top:1px solid var(--border); color:var(--muted); background:rgba(0,0,0,.18)}
     .footer__wrap{display:flex; justify-content:space-between; align-items:center}
     .small{font-size:13px; opacity:.85}
 
-    /* Reveal on scroll */
+    /* Reveal effects */
     .reveal{opacity:0; transform: translateY(18px); transition: all .85s cubic-bezier(.2,.8,.2,1)}
     .reveal.in{opacity:1; transform:none}
 
@@ -237,6 +255,10 @@
     .to-top.show{opacity:1; pointer-events:auto}
 
     /* Responsive */
+    @media (max-width: 1000px){
+      .hero__wrap{grid-template-columns:1fr}
+      .hero-carousel{order:-1}
+    }
     @media (max-width: 900px){
       .nav{display:none}
       .burger{display:block}
@@ -245,15 +267,11 @@
         background: rgba(16,7,24,.98); border-bottom:1px solid var(--border); box-shadow:var(--shadow);
         flex-direction:column; gap:8px
       }
-      .hero__wrap{grid-template-columns:1fr}
-      .hero-ornament{order:-1; margin-bottom:14px}
       .grid-2{grid-template-columns:1fr}
       .video-grid{grid-template-columns:1fr}
       .gallery{grid-template-columns:1fr}
-      .gallery img{height:320px}
+      .gallery img{height:360px}
     }
-
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{animation: none !important; transition:none !important}
       html{scroll-behavior:auto}
@@ -280,68 +298,85 @@
     </div>
   </header>
 
-  <section class="hero aura-bg" id="top">
+  <!-- HERO -->
+  <section class="section themed hero" id="top" data-theme="rose-gold">
     <div class="container hero__wrap">
       <div class="hero__text reveal">
-        <h1>Цыганский ансамбль</h1>
-        <p>Песни, танцы и энергия сцены. Живой звук. 4 солиста. Яркое шоу для любых площадок.</p>
-        <a href="#contacts" class="btn btn--primary">Забронировать дату</a>
+        <h1 style="text-align:center; margin-bottom:10px;">Цыганский ансамбль</h1>
+        <p style="text-align:center;">Песни, танцы и энергия сцены. Живой звук. 4 солиста. Яркое шоу для любых площадок.</p>
+        <div style="text-align:center;"><a href="#contacts" class="btn btn--primary">Забронировать дату</a></div>
       </div>
-      <div class="hero-ornament reveal tilt" data-tilt></div>
+
+      <!-- Карусель с фотографиями из папки img -->
+      <div class="hero-carousel reveal tilt" data-tilt id="heroCarousel" aria-label="Фото карусель">
+        <div class="track">
+          <div class="slide"><img src="img/photo_01.jpg" alt="Gypsy Show 1"></div>
+          <div class="slide"><img src="img/photo_02.jpg" alt="Gypsy Show 2"></div>
+          <div class="slide"><img src="img/photo_03.jpg" alt="Gypsy Show 3"></div>
+          <div class="slide"><img src="img/photo_04.jpg" alt="Gypsy Show 4"></div>
+          <div class="slide"><img src="img/photo_05.jpg" alt="Gypsy Show 5"></div>
+          <div class="slide"><img src="img/photo_06.jpg" alt="Gypsy Show 6"></div>
+        </div>
+        <div class="nav" aria-hidden="true">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="about" class="section aura-bg">
+  <!-- ABOUT -->
+  <section id="about" class="section themed" data-theme="violet-cyan">
     <div class="container">
-      <h2 class="reveal">О нас</h2>
-      <p class="sub reveal">Мы выходим к гостям с живой музыкой, танцами и яркими интерактивами. Камерные вечера и большие сцены — одинаково уверенно.</p>
+      <h2>О нас</h2>
+      <p class="sub">Мы выходим к гостям с чаркой под песню «Пей до дна», танцами и яркими интерактивами. Работаем с каждым гостем. Камерные вечера и большие сцены — одинаково уверенно.</p>
       <ul class="features reveal">
         <li>Живой вокал и танцы</li>
-        <li>Цыганская классика и современные хиты</li>
+        <li>Всеми любимые цыганские песни</li>
         <li>Интерактив с залом</li>
       </ul>
     </div>
   </section>
 
-  <section id="program" class="section aura-bg" style="border-block:1px solid var(--border)">
+  <!-- PROGRAM -->
+  <section id="program" class="section themed" data-theme="gold-amber">
     <div class="container">
-      <h2 class="reveal">Программа</h2>
+      <h2>Программа</h2>
       <div class="grid-2">
         <div class="card reveal tilt" data-tilt>
-          <h3>Для сцены</h3>
+          <h3>Состав программы</h3>
           <ul class="list">
             <li>«Величальная»</li>
-            <li>«Мохнатый шмель», «Дорогой длинною», «Гитара мается»</li>
+            <li>«Мохнатый шмель», «Дорогой длинною», «Гитара мается» и другие</li>
             <li>Танцевальные выходы, чечётки</li>
             <li>Предсказания, хоровод, фотофинал</li>
           </ul>
         </div>
         <div class="card reveal tilt" data-tilt>
-          <h3>Для welcome/залов</h3>
+          <h3>Что мы предлагаем</h3>
           <ul class="list">
-            <li>Встреча с шампанским</li>
-            <li>Короткие музыкальные включения</li>
-            <li>Лёгкие конкурсы и интерактив</li>
-            <li>Новая программа и костюмы на второй блок</li>
+            <li>Встреча с чаркой, как в фильме «Жестокий романс»</li>
+            <li>Живое исполнение цыганских хитов</li>
+            <li>Лёгкие интерактивы и гадание</li>
+            <li>Множество программ и 3 вида костюмов</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="video" class="section aura-bg">
+  <!-- VIDEO -->
+  <section id="video" class="section themed" data-theme="rose-violet">
     <div class="container">
-      <h2 class="reveal">Видео</h2>
+      <h2>Видео</h2>
       <div class="video-grid">
         <div class="video reveal tilt" data-tilt>
-          <!-- Локальный файл. Загрузите video/clip1.mp4 в репозиторий -->
           <video controls preload="metadata" poster="img/photo_01.jpg">
             <source src="video/clip1.mp4" type="video/mp4">
             Ваш браузер не поддерживает тег video.
           </video>
         </div>
         <div class="video reveal tilt" data-tilt>
-          <!-- Локальный файл. Загрузите video/clip2.mp4 в репозиторий -->
           <video controls preload="metadata" poster="img/photo_02.jpg">
             <source src="video/clip2.mp4" type="video/mp4">
             Ваш браузер не поддерживает тег video.
@@ -351,9 +386,10 @@
     </div>
   </section>
 
-  <section id="gallery" class="section aura-bg" style="border-block:1px solid var(--border)">
+  <!-- GALLERY -->
+  <section id="gallery" class="section themed" data-theme="cyan-violet">
     <div class="container">
-      <h2 class="reveal">Галерея</h2>
+      <h2>Галерея</h2>
       <div class="gallery">
         <img class="reveal" src="img/photo_01.jpg" alt="GypsyShow 1" loading="lazy" />
         <img class="reveal" src="img/photo_02.jpg" alt="GypsyShow 2" loading="lazy" />
@@ -365,15 +401,16 @@
     </div>
   </section>
 
-  <section id="contacts" class="section aura-bg">
+  <!-- CONTACTS -->
+  <section id="contacts" class="section themed" data-theme="gold-rose">
     <div class="container">
-      <h2 class="reveal">Контакты и бронирование</h2>
-      <div class="contacts reveal">
+      <h2>Контакты и бронирование</h2>
+      <div class="contacts reveal" style="text-align:center;">
         <p>Телефон: <a href="tel:+79282589678">+7 (928) 258‑96‑78</a></p>
         <p>Телефон: <a href="tel:+79284072037">+7 (928) 407‑20‑37</a></p>
         <p>Instagram: <a href="https://instagram.com/tsigane_na_prazdnik" target="_blank" rel="noopener">tsigane_na_prazdnik</a></p>
         <p>ВКонтакте: <a href="https://vk.com/tsigane_na_prazdnik" target="_blank" rel="noopener">vk.com/tsigane_na_prazdnik</a></p>
-        <div style="margin-top:16px">
+        <div style="margin-top:18px">
           <a href="#about" class="btn btn--primary">Посмотреть программу</a>
         </div>
       </div>
@@ -404,11 +441,11 @@
   <div class="to-top" id="toTop"><a class="btn btn--outlined" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</a></div>
 
   <script>
-    // Helper: prefer reduced motion
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Progress bar
+    // Progress bar + toTop visibility + section stripe animation
     const progress = document.getElementById('progress');
+    const sections = document.querySelectorAll('.section');
     const onScroll = () => {
       const y = window.scrollY || document.documentElement.scrollTop;
       const h = document.documentElement.scrollHeight - window.innerHeight;
@@ -430,19 +467,25 @@
       btn.appendChild(s); setTimeout(()=>s.remove(), 650);
     });
 
-    // Reveal on scroll
+    // Reveal on scroll + add 'in' to sections for stripe animation
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach((en)=>{ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
-    }, {rootMargin:'0px 0px -10% 0px', threshold:.15});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      entries.forEach((en)=>{
+        if (en.isIntersecting){
+          en.target.classList.add('in');
+          if (en.target.querySelectorAll) {
+            en.target.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+          }
+          io.unobserve(en.target);
+        }
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:.18});
+    sections.forEach(sec=>io.observe(sec));
 
     // Custom cursor + aura following mouse
     const cDot = document.getElementById('cDot');
     const cRing = document.getElementById('cRing');
-    const aura = document.getElementById('aura');
-    let cx = window.innerWidth/2, cy = window.innerHeight/2, tx = cx, ty = cy;
+    let cx = innerWidth/2, cy = innerHeight/2, tx = cx, ty = cy;
     function raf(){
-      // lerp ring position
       cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
       cRing.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
       cDot.style.transform  = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
@@ -456,16 +499,14 @@
     }, {passive:true});
     ['mousedown','mouseleave','blur'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.add('cursor-hide')));
     ['mouseup','mouseenter','focus'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.remove('cursor-hide')));
-    // Emphasize ring over interactive
     document.querySelectorAll('a, button, .btn, .gallery img').forEach(el=>{
       el.addEventListener('mouseenter', ()=> cRing.style.transform += ' scale(1.15)');
       el.addEventListener('mouseleave', ()=> cRing.style.transform = cRing.style.transform.replace(' scale(1.15)',''));
     });
 
-    // Parallax tilt for elements with data-tilt
+    // Parallax tilt for [data-tilt]
     if (!reduced){
       document.querySelectorAll('[data-tilt]').forEach(el=>{
-        let bx, by;
         el.addEventListener('mousemove', (e)=>{
           const r = el.getBoundingClientRect();
           const x = e.clientX - r.left; const y = e.clientY - r.top;
@@ -476,6 +517,38 @@
         el.addEventListener('mouseleave', ()=> el.style.transform='perspective(900px) rotateX(0) rotateY(0)');
       });
     }
+
+    // HERO CAROUSEL (slides every 3s, pause on hover, swipe on touch)
+    (function(){
+      const root = document.getElementById('heroCarousel');
+      if (!root) return;
+      const track = root.querySelector('.track');
+      const slides = [...root.querySelectorAll('.slide')];
+      const dots = [...root.querySelectorAll('.dot')];
+      let i = 0, N = slides.length, timer;
+
+      function go(n, instant=false){
+        i = (n + N) % N;
+        track.style.transition = instant ? 'none' : 'transform .9s cubic-bezier(.2,.8,.2,1)';
+        track.style.transform = `translateX(-${i*100}%)`;
+        dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+      }
+      function play(){ stop(); timer = setInterval(()=>go(i+1), 3000); }
+      function stop(){ if (timer) clearInterval(timer); }
+
+      dots.forEach((d,k)=> d.addEventListener('click', ()=>{ go(k); play(); }));
+
+      let startX=0, dx=0, touching=false;
+      root.addEventListener('pointerdown', (e)=>{ touching=true; startX=e.clientX; dx=0; stop(); root.setPointerCapture(e.pointerId); });
+      root.addEventListener('pointermove', (e)=>{ if(!touching) return; dx = e.clientX - startX; track.style.transition='none'; track.style.transform=`translateX(calc(-${i*100}% + ${dx}px))`; });
+      root.addEventListener('pointerup', (e)=>{ if(!touching) return; touching=false; root.releasePointerCapture(e.pointerId);
+        if (dx > 80) go(i-1); else if (dx < -80) go(i+1); else go(i);
+        play();
+      });
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', play);
+      go(0, true); play();
+    })();
 
     // Lightbox with Zoom/Pan
     const lb = document.getElementById('lightbox');
@@ -498,17 +571,14 @@
       if (e.key==='ArrowRight') lb.querySelector('.lb-next').click();
       if (e.key==='ArrowLeft') lb.querySelector('.lb-prev').click();
     });
-    // Zoom buttons
     document.getElementById('lbZoomIn').addEventListener('click', ()=>{ scale = clamp(scale+0.25, 1, 4); applyTransform(); });
     document.getElementById('lbZoomOut').addEventListener('click', ()=>{ scale = clamp(scale-0.25, 1, 4); if(scale===1){pos.x=pos.y=0} applyTransform(); });
     document.getElementById('lbZoomReset').addEventListener('click', ()=>{ resetZoom(); });
-    // Wheel zoom
     lb.addEventListener('wheel', (e)=>{
       if (!lb.classList.contains('show')) return;
       e.preventDefault();
       const delta = -Math.sign(e.deltaY) * 0.2;
       const old = scale; scale = clamp(scale + delta, 1, 4);
-      // Zoom around cursor point
       const rect = lbImg.getBoundingClientRect();
       const cx = e.clientX - rect.left - rect.width /2;
       const cy = e.clientY - rect.top  - rect.height/2;
@@ -516,16 +586,14 @@
       pos.y -= cy * (scale/old - 1);
       applyTransform();
     }, {passive:false});
-    // Drag to pan
     lbImg.addEventListener('mousedown', (e)=>{ if (scale<=1) return; dragging=true; start.x=e.clientX-pos.x; start.y=e.clientY-pos.y; e.preventDefault(); });
     window.addEventListener('mousemove', (e)=>{ if (!dragging) return; pos.x=e.clientX-start.x; pos.y=e.clientY-start.y; applyTransform(); });
     window.addEventListener('mouseup', ()=> dragging=false);
-    // Touch pan
     lbImg.addEventListener('touchstart', (e)=>{ if (scale<=1) return; dragging=true; const t=e.touches[0]; start.x=t.clientX-pos.x; start.y=t.clientY-pos.y; }, {passive:true});
     lbImg.addEventListener('touchmove', (e)=>{ if (!dragging) return; const t=e.touches[0]; pos.x=t.clientX-start.x; pos.y=t.clientY-start.y; applyTransform(); }, {passive:true});
     lbImg.addEventListener('touchend', ()=> dragging=false);
 
-    // Close mobile menu on link click or outside header
+    // Close mobile menu on link click / outside
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.header') && document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
