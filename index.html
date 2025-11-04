@@ -116,7 +116,7 @@
 
     /* Section theming */
     section{scroll-margin-top: calc(var(--header-h) + 16px)}
-    .section{padding:96px 0; position:relative}
+    .section{padding:96px 0; position:relative; overflow:hidden} /* важное: обрезаем фоновые переливы, чтобы не было пустого низа */
     .section[data-theme]{--acc1: var(--rose); --acc2: var(--gold); --acc3: var(--violet)}
     .section[data-theme="rose-gold"] {--acc1:var(--rose);   --acc2:var(--gold);  --acc3:var(--violet)}
     .section[data-theme="violet-cyan"]{--acc1:var(--violet);--acc2:var(--cyan);  --acc3:var(--rose)}
@@ -188,15 +188,11 @@
     .features{display:grid; gap:10px; padding-left:20px}
     .tilt{transform-style:preserve-3d; perspective:1000px; will-change:transform; transition:transform .12s ease}
 
-    /* VIDEO: 3 колонки × 2 ряда, вертикальные 9:16 */
-    .video-grid{
-      display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;
-    }
+    /* VIDEO: 2 вертикальных ролика 9:16 */
+    .video-grid{display:grid; grid-template-columns: repeat(2, 1fr); gap:20px}
     .video{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#000; box-shadow:var(--shadow)}
-    .video-vert{ aspect-ratio: 9 / 16; } /* вертикальная рамка */
-    .video-vert video{
-      width:100%; height:100%; object-fit:cover; display:block; outline:none;
-    }
+    .video-vert{ aspect-ratio: 9 / 16; }
+    .video-vert video{ width:100%; height:100%; object-fit:cover; display:block; outline:none }
 
     /* Gallery larger */
     .gallery{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
@@ -229,9 +225,9 @@
     .contacts p{margin:.35em 0; font-size:18.5px}
     .contacts a{color:#fff; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.4)}
     .contacts a:hover{color:var(--gold); border-color:transparent}
-    .footer{padding:30px 0; border-top:1px solid var(--border); color:var(--muted); background:rgba(0,0,0,.18)}
+    .footer{padding:30px 0 0; border-top:1px solid var(--border); color:var(--muted); background:rgba(0,0,0,.18)} /* bottom padding = 0 */
     .footer__wrap{display:flex; justify-content:space-between; align-items:center}
-    .small{font-size:13px; opacity:.85}
+    .small{font-size:13px; opacity:.85; margin:0}
 
     /* Reveal effects */
     .reveal{opacity:0; transform: translateY(18px); transition: all .85s cubic-bezier(.2,.8,.2,1)}
@@ -242,17 +238,9 @@
     .to-top.show{opacity:1; pointer-events:auto}
 
     /* Responsive */
-    @media (max-width: 1200px){
-      .video-grid{grid-template-columns: repeat(3, 1fr);}
-    }
     @media (max-width: 980px){
       .hero__wrap{grid-template-columns:1fr}
-      .video-grid{grid-template-columns: repeat(2, 1fr);}
-    }
-    @media (max-width: 680px){
-      .video-grid{grid-template-columns: 1fr;}
-      .gallery{grid-template-columns:1fr}
-      .gallery img{height:360px}
+      .video-grid{grid-template-columns: 1fr}
     }
     @media (max-width: 900px){
       .nav{display:none}
@@ -263,6 +251,8 @@
         flex-direction:column; gap:8px
       }
       .grid-2{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+      .gallery img{height:360px}
     }
     @media (prefers-reduced-motion: reduce){
       *{animation: none !important; transition:none !important}
@@ -356,7 +346,7 @@
     </div>
   </section>
 
-  <!-- VIDEO: 6 вертикальных роликов -->
+  <!-- VIDEO: 2 вертикальных ролика -->
   <section id="video" class="section themed" data-theme="rose-violet">
     <div class="container">
       <h2>Видео</h2>
@@ -370,30 +360,6 @@
         <div class="video video-vert reveal tilt" data-tilt>
           <video controls preload="metadata" poster="img/photo_02.jpg" playsinline>
             <source src="video/clip2.mp4" type="video/mp4">
-            Ваш браузер не поддерживает тег video.
-          </video>
-        </div>
-        <div class="video video-vert reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_03.jpg" playsinline>
-            <source src="video/clip3.mp4" type="video/mp4">
-            Ваш браузер не поддерживает тег video.
-          </video>
-        </div>
-        <div class="video video-vert reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_04.jpg" playsinline>
-            <source src="video/clip4.mp4" type="video/mp4">
-            Ваш браузер не поддерживает тег video.
-          </video>
-        </div>
-        <div class="video video-vert reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_05.jpg" playsinline>
-            <source src="video/clip5.mp4" type="video/mp4">
-            Ваш браузер не поддерживает тег video.
-          </video>
-        </div>
-        <div class="video video-vert reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_06.jpg" playsinline>
-            <source src="video/clip6.mp4" type="video/mp4">
             Ваш браузер не поддерживает тег video.
           </video>
         </div>
@@ -420,7 +386,7 @@
   <section id="contacts" class="section themed" data-theme="gold-rose">
     <div class="container">
       <h2>Контакты и бронирование</h2>
-      <div class="contacts reveal" style="text-align:center;">
+    <div class="contacts reveal" style="text-align:center;">
         <p>Телефон: <a href="tel:+79282589678">+7 (928) 258‑96‑78</a></p>
         <p>Телефон: <a href="tel:+79284072037">+7 (928) 407‑20‑37</a></p>
         <p>Instagram: <a href="https://instagram.com/tsigane_na_prazdnik" target="_blank" rel="noopener">tsigane_na_prazdnik</a></p>
@@ -523,9 +489,8 @@
       const root = document.getElementById('heroCarousel');
       if (!root) return;
       const track = root.querySelector('.track');
-      const slides = [...root.querySelectorAll('.slide')];
       const dots = [...root.querySelectorAll('.dot')];
-      let i = 0, N = slides.length, timer;
+      let i = 0, N = root.querySelectorAll('.slide').length, timer;
 
       function go(n, instant=false){
         i = (n + N) % N;
@@ -533,7 +498,7 @@
         track.style.transform = `translateX(-${i*100}%)`;
         dots.forEach((d,k)=>d.classList.toggle('active', k===i));
       }
-      function play(){ stop(); timer = setInterval(()=>go(i+1), 2000); } // каждые 2 секунды
+      function play(){ stop(); timer = setInterval(()=>go(i+1), 2000); }
       function stop(){ if (timer) clearInterval(timer); }
 
       dots.forEach((d,k)=> d.addEventListener('click', ()=>{ go(k); play(); }));
@@ -574,25 +539,6 @@
     document.getElementById('lbZoomIn').addEventListener('click', ()=>{ scale = clamp(scale+0.25, 1, 4); applyTransform(); });
     document.getElementById('lbZoomOut').addEventListener('click', ()=>{ scale = clamp(scale-0.25, 1, 4); if(scale===1){pos.x=pos.y=0} applyTransform(); });
     document.getElementById('lbZoomReset').addEventListener('click', ()=>{ resetZoom(); });
-
-    lb.addEventListener('wheel', (e)=>{
-      if (!lb.classList.contains('show')) return;
-      e.preventDefault();
-      const delta = -Math.sign(e.deltaY) * 0.2;
-      const old = scale; scale = clamp(scale + delta, 1, 4);
-      const rect = lbImg.getBoundingClientRect();
-      const cx = e.clientX - rect.left - rect.width /2;
-      const cy = e.clientY - rect.top  - rect.height/2;
-      pos.x -= cx * (scale/old - 1);
-      pos.y -= cy * (scale/old - 1);
-      applyTransform();
-    }, {passive:false});
-    lbImg.addEventListener('mousedown', (e)=>{ if (scale<=1) return; dragging=true; start.x=e.clientX-pos.x; start.y=e.clientY-pos.y; e.preventDefault(); });
-    window.addEventListener('mousemove', (e)=>{ if (!dragging) return; pos.x=e.clientX-start.x; pos.y=e.clientY-start.y; applyTransform(); });
-    window.addEventListener('mouseup', ()=> dragging=false);
-    lbImg.addEventListener('touchstart', (e)=>{ if (scale<=1) return; dragging=true; const t=e.touches[0]; start.x=t.clientX-pos.x; start.y=t.clientY-pos.y; }, {passive:true});
-    lbImg.addEventListener('touchmove', (e)=>{ if (!dragging) return; const t=e.touches[0]; pos.x=t.clientX-start.x; pos.y=t.clientY-start.y; applyTransform(); }, {passive:true});
-    lbImg.addEventListener('touchend', ()=> dragging=false);
 
     // Close mobile menu
     document.addEventListener('click', (e) => {
