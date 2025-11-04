@@ -55,12 +55,13 @@
     /* Scroll progress */
     .progress{position:fixed; top:0; left:0; height:3px; width:0%; background: linear-gradient(90deg, var(--rose), var(--gold), var(--violet)); z-index:1000; box-shadow:0 0 12px rgba(255,255,255,.4)}
 
-    /* Simplified custom cursor */
+    /* Light cursor follower (smooth, lightweight) */
     .cursor{
-      position:fixed; left:0; top:0; width:22px; height:22px; border-radius:50%;
-      border:1px solid rgba(255,255,255,.55); box-shadow:0 0 10px rgba(255,255,255,.25);
+      position:fixed; left:0; top:0; width:20px; height:20px; border-radius:50%;
+      border:1px solid rgba(255,255,255,.45);
+      box-shadow:0 0 10px rgba(255,255,255,.25);
       transform:translate(-50%,-50%); pointer-events:none; z-index:999;
-      transition: transform .04s linear, opacity .3s ease;
+      transition: opacity .3s ease;
       mix-blend-mode:screen; opacity:.9;
     }
     .cursor-hide .cursor{opacity:0}
@@ -75,23 +76,28 @@
     .container{width:min(1200px, 92%); margin-inline:auto}
     .header__wrap{display:flex; align-items:center; justify-content:space-between; gap:20px; height:var(--header-h)}
     .logo{
-      font: 700 30px "Playfair Display", serif; letter-spacing:.5px;
+      font: 700 30px "Playfair Display", serif; letter-spacing:.5px; white-space:nowrap;
       background: linear-gradient(120deg, #fff 20%, var(--gold) 45%, #fff 65%, var(--rose) 85%);
       -webkit-background-clip:text; background-clip:text; color:transparent; animation:sheen 6s linear infinite;
     }
     @keyframes sheen{0%{background-position:0%}100%{background-position:200%}}
-    .nav{display:flex; gap:18px; align-items:center}
+
+    /* Nav with sliding pill */
+    .nav{position:relative; display:flex; gap:10px; align-items:center; padding:6px; border-radius:16px; background: rgba(255,255,255,.05); backdrop-filter: blur(6px)}
     .nav a{
-      color:var(--muted); text-decoration:none; font-weight:600; padding:10px 12px; border-radius:12px; position:relative;
-      transition: color .2s, transform .2s;
+      position:relative; z-index:1; color:#e9deef; text-decoration:none; font-weight:600;
+      padding:10px 14px; border-radius:12px; transition:color .2s ease;
+      white-space:nowrap;
     }
-    .nav a::after{
-      content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px; border-radius:2px;
-      background: linear-gradient(90deg, var(--rose), var(--gold), var(--violet)); transform:scaleX(0); transform-origin:left;
-      transition: transform .25s;
+    .nav a:hover{color:#fff}
+    .nav__pill{
+      position:absolute; left:0; top:0; width:0; height:0; border-radius:12px;
+      background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.25);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.08);
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), width .2s ease, height .2s ease, opacity .3s ease;
+      z-index:0; pointer-events:none; opacity:1;
     }
-    .nav a:hover{color:#fff; transform:translateY(-1px)}
-    .nav a:hover::after{transform:scaleX(1)}
     .burger{display:none; font-size:26px; border:none; background:transparent; color:#fff}
 
     /* Buttons */
@@ -114,19 +120,12 @@
     .btn span.ripple{position:absolute; border-radius:50%; transform:scale(0); background:rgba(255,255,255,.6); animation:ripple 600ms linear; pointer-events:none}
     @keyframes ripple{to{transform:scale(4); opacity:0}}
 
-    /* Section theming */
-    section{scroll-margin-top: calc(var(--header-h) + 16px)}
-    .section{padding:96px 0; position:relative; overflow:hidden} /* важное: обрезаем фоновые переливы, чтобы не было пустого низа */
+    /* Sections */
+    section{scroll-margin-top: calc(var(--header-h) + 12px)}
+    .section{padding:96px 0; position:relative; overflow:hidden}
     .section[data-theme]{--acc1: var(--rose); --acc2: var(--gold); --acc3: var(--violet)}
-    .section[data-theme="rose-gold"] {--acc1:var(--rose);   --acc2:var(--gold);  --acc3:var(--violet)}
-    .section[data-theme="violet-cyan"]{--acc1:var(--violet);--acc2:var(--cyan);  --acc3:var(--rose)}
-    .section[data-theme="gold-amber"] {--acc1:var(--gold);  --acc2:var(--amber); --acc3:var(--rose)}
-    .section[data-theme="rose-violet"]{--acc1:var(--rose);  --acc2:var(--violet);--acc3:var(--gold)}
-    .section[data-theme="cyan-violet"]{--acc1:var(--cyan);  --acc2:var(--violet);--acc3:var(--rose)}
-    .section[data-theme="gold-rose"]  {--acc1:var(--gold);  --acc2:var(--rose);  --acc3:var(--violet)}
-
     .section.themed::before{
-      content:""; position:absolute; inset:-20% -10%; z-index:-1; filter: blur(60px); opacity:.55;
+      content:""; position:absolute; inset:-20% -10%; z-index:-1; filter: blur(60px); opacity:.5;
       background: conic-gradient(from 180deg at 30% 40%, rgba(255,61,106,.22), rgba(255,183,3,.2), rgba(122,77,255,.2), rgba(43,245,255,.18), rgba(255,61,106,.22));
       animation: spin 28s linear infinite;
     }
@@ -142,6 +141,7 @@
       text-align:center;
       font: 700 clamp(34px, 5vw, 64px) "Playfair Display", serif; margin:0 0 20px;
       background: linear-gradient(120deg, #fff 0%, #fff 40%, var(--acc1) 60%, var(--acc2) 80%); -webkit-background-clip:text; background-clip:text; color:transparent;
+      white-space:nowrap;
     }
     .section h2::after{
       content:""; display:block; width:min(240px, 40%); height:4px; margin:14px auto 0; border-radius:999px;
@@ -151,29 +151,30 @@
     .section.in h2::after{transform:scaleX(1)}
     .sub{color:var(--muted); margin:0 auto 26px; width:min(860px, 92%); text-align:center; font-size:19px}
 
-    /* Hero with bigger left column (carousel 1.5x) */
-    .hero{padding: clamp(88px, 12vw, 150px) 0 100px; overflow:hidden; border-bottom:1px solid var(--border)}
+    /* Hero */
+    .hero{padding: clamp(88px, 12vw, 150px) 0 100px; border-bottom:1px solid var(--border)}
     .hero__wrap{display:grid; grid-template-columns: 1.5fr 1fr; align-items:center; gap:34px}
+    .hero__text h1{
+      margin:0 0 12px; font: 700 clamp(32px, 4.8vw, 56px) "Playfair Display", serif; white-space:nowrap;
+      background: linear-gradient(120deg, #fff 0%, #fff 40%, var(--gold) 60%, #fff 80%); -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow:0 8px 28px rgba(255,61,106,.32);
+      animation:sheen 7s linear infinite;
+    }
+    .hero__text p{margin:0 0 26px; color:var(--muted); font-size:19px}
 
     /* Hero carousel */
     .hero-carousel{
       position:relative; border-radius: var(--radius); overflow:hidden; box-shadow:var(--shadow);
-      border:1px solid var(--border); background:#000; aspect-ratio: 16/9;
+      border:1px solid var(--border); background:#000; aspect-ratio:16/9;
     }
     .hero-carousel .track{display:flex; width:100%; height:100%; transition: transform .8s cubic-bezier(.2,.8,.2,1)}
     .hero-carousel .slide{min-width:100%; height:100%}
     .hero-carousel img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.1) contrast(1.05)}
-    .hero-carousel .nav{
-      position:absolute; inset:auto 12px 12px auto; display:flex; gap:8px; z-index:2;
-      background: rgba(0,0,0,.25); padding:6px 8px; border-radius:999px; border:1px solid var(--border); backdrop-filter: blur(6px);
-    }
-    .hero-carousel .dot{
-      width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); box-shadow:0 0 0 1px rgba(255,255,255,.35) inset;
-      transition:transform .2s, background .2s;
-    }
+    .hero-carousel .nav{position:absolute; inset:auto 12px 12px auto; display:flex; gap:8px; z-index:2; background: rgba(0,0,0,.25); padding:6px 8px; border-radius:999px; border:1px solid var(--border); backdrop-filter: blur(6px)}
+    .hero-carousel .dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); box-shadow:0 0 0 1px rgba(255,255,255,.35) inset; transition:transform .2s, background .2s}
     .hero-carousel .dot.active{background: linear-gradient(135deg, var(--rose), var(--gold)); transform:scale(1.25)}
 
-    /* Cards / grids */
+    /* Cards */
     .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:30px}
     .card{padding:26px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid var(--border); box-shadow:var(--shadow); position:relative; overflow:hidden}
     .card::before{
@@ -188,13 +189,15 @@
     .features{display:grid; gap:10px; padding-left:20px}
     .tilt{transform-style:preserve-3d; perspective:1000px; will-change:transform; transition:transform .12s ease}
 
-    /* VIDEO: 2 вертикальных ролика 9:16 */
-    .video-grid{display:grid; grid-template-columns: repeat(2, 1fr); gap:20px}
-    .video{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#000; box-shadow:var(--shadow)}
-    .video-vert{ aspect-ratio: 9 / 16; }
+    /* VIDEO: 2 вертикальных ролика, аккуратнее по размеру */
+    .video-grid{
+      display:grid; grid-template-columns: repeat(2, 1fr); gap:20px; place-items:center;
+    }
+    .video{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#000; box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center}
+    .video-vert{ aspect-ratio: 9 / 16; height: clamp(360px, 55vh, 620px); } /* задаём высоту, ширина подстроится */
     .video-vert video{ width:100%; height:100%; object-fit:cover; display:block; outline:none }
 
-    /* Gallery larger */
+    /* Gallery */
     .gallery{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
     @media(min-width:1100px){ .gallery{grid-template-columns:repeat(3, 1fr)} }
     .gallery img{
@@ -206,7 +209,7 @@
     }
     .gallery img:hover{transform:scale(1.035); box-shadow:0 22px 46px rgba(0,0,0,.5)}
 
-    /* Lightbox with Zoom */
+    /* Lightbox */
     .lightbox{position:fixed; inset:0; background:rgba(6,3,10,.92); display:none; align-items:center; justify-content:center; z-index:100}
     .lightbox.show{display:flex}
     .lb-stage{position:relative; max-width:94vw; max-height:88vh; overflow:hidden; border-radius:16px; border:1px solid var(--border); box-shadow:var(--shadow)}
@@ -225,11 +228,11 @@
     .contacts p{margin:.35em 0; font-size:18.5px}
     .contacts a{color:#fff; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.4)}
     .contacts a:hover{color:var(--gold); border-color:transparent}
-    .footer{padding:30px 0 0; border-top:1px solid var(--border); color:var(--muted); background:rgba(0,0,0,.18)} /* bottom padding = 0 */
+    .footer{padding:30px 0 0; border-top:1px solid var(--border); color:var(--muted); background:rgba(0,0,0,.18)}
     .footer__wrap{display:flex; justify-content:space-between; align-items:center}
     .small{font-size:13px; opacity:.85; margin:0}
 
-    /* Reveal effects */
+    /* Reveal */
     .reveal{opacity:0; transform: translateY(18px); transition: all .85s cubic-bezier(.2,.8,.2,1)}
     .reveal.in{opacity:1; transform:none}
 
@@ -241,6 +244,9 @@
     @media (max-width: 980px){
       .hero__wrap{grid-template-columns:1fr}
       .video-grid{grid-template-columns: 1fr}
+      .section h2{font-size: clamp(28px, 8vw, 42px)}
+      .logo{font-size:26px}
+      .hero__text h1{font-size: clamp(26px, 8vw, 40px)}
     }
     @media (max-width: 900px){
       .nav{display:none}
@@ -267,13 +273,16 @@
   <header class="header">
     <div class="container header__wrap">
       <div class="logo">Цыгане на праздник</div>
-      <nav class="nav">
-        <a href="#about">О нас</a>
-        <a href="#program">Программа</a>
-        <a href="#video">Видео</a>
-        <a href="#gallery">Галерея</a>
-        <a href="#contacts" class="btn btn--outlined">Контакты</a>
+
+      <nav class="nav" id="mainNav">
+        <span class="nav__pill" id="navPill"></span>
+        <a href="#about" data-target="#about">О нас</a>
+        <a href="#program" data-target="#program">Программа</a>
+        <a href="#video" data-target="#video">Видео</a>
+        <a href="#gallery" data-target="#gallery">Галерея</a>
+        <a href="#contacts" data-target="#contacts">Контакты</a>
       </nav>
+
       <button class="burger" aria-label="Меню" onclick="document.body.classList.toggle('menu-open')">☰</button>
     </div>
   </header>
@@ -291,7 +300,7 @@
           <div class="slide"><img src="img/photo_05.jpg" alt="Цыгане на праздник 5"></div>
           <div class="slide"><img src="img/photo_06.jpg" alt="Цыгане на праздник 6"></div>
         </div>
-        <div class="nav" aria-hidden="true">
+        <div class="nav" aria-hidden="true" style="position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.25);padding:6px 8px;border-radius:999px;border:1px solid var(--border);backdrop-filter:blur(6px)">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         </div>
@@ -299,7 +308,7 @@
 
       <!-- Текст справа -->
       <div class="hero__text reveal">
-        <h1 style="text-align:center; margin-bottom:10px;">Цыгане на праздник</h1>
+        <h1 style="text-align:center;">Цыгане на праздник</h1>
         <p style="text-align:center;">Песни, танцы и энергия сцены. Живой звук. 4 солиста. Яркое шоу для любых площадок.</p>
         <div style="text-align:center;"><a href="#contacts" class="btn btn--primary">Забронировать дату</a></div>
       </div>
@@ -386,7 +395,7 @@
   <section id="contacts" class="section themed" data-theme="gold-rose">
     <div class="container">
       <h2>Контакты и бронирование</h2>
-    <div class="contacts reveal" style="text-align:center;">
+      <div class="contacts reveal" style="text-align:center;">
         <p>Телефон: <a href="tel:+79282589678">+7 (928) 258‑96‑78</a></p>
         <p>Телефон: <a href="tel:+79284072037">+7 (928) 407‑20‑37</a></p>
         <p>Instagram: <a href="https://instagram.com/tsigane_na_prazdnik" target="_blank" rel="noopener">tsigane_na_prazdnik</a></p>
@@ -424,9 +433,8 @@
   <script>
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Progress bar + toTop
+    // Progress bar + ToTop
     const progress = document.getElementById('progress');
-    const sections = document.querySelectorAll('.section');
     const onScroll = () => {
       const y = window.scrollY || document.documentElement.scrollTop;
       const h = document.documentElement.scrollHeight - window.innerHeight;
@@ -448,27 +456,30 @@
       btn.appendChild(s); setTimeout(()=>s.remove(), 650);
     });
 
-    // Reveal on scroll + section stripe
+    // Reveal sections
+    const sections = document.querySelectorAll('.section');
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((en)=>{
         if (en.isIntersecting){
           en.target.classList.add('in');
-          if (en.target.querySelectorAll) {
-            en.target.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
-          }
+          en.target.querySelectorAll?.('.reveal').forEach(el=>el.classList.add('in'));
           io.unobserve(en.target);
         }
       });
     }, {rootMargin:'0px 0px -12% 0px', threshold:.18});
     sections.forEach(sec=>io.observe(sec));
 
-    // Simplified cursor
-    const cursor = document.getElementById('cursor');
-    window.addEventListener('mousemove', (e)=>{
-      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%,-50%)`;
-    }, {passive:true});
-    ['mouseleave','blur','mousedown'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.add('cursor-hide')));
-    ['mouseenter','focus','mouseup'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.remove('cursor-hide')));
+    // Smooth cursor with a tiny lag (lightweight)
+    (function(){
+      if (reduced) { document.getElementById('cursor')?.remove(); return; }
+      const c = document.getElementById('cursor'); if (!c) return;
+      let tx = innerWidth/2, ty = innerHeight/2, x = tx, y = ty;
+      window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, {passive:true});
+      function raf(){ x += (tx - x)*0.18; y += (ty - y)*0.18; c.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`; requestAnimationFrame(raf) }
+      requestAnimationFrame(raf);
+      ['mouseleave','blur','mousedown'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.add('cursor-hide')));
+      ['mouseenter','focus','mouseup'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.remove('cursor-hide')));
+    })();
 
     // Parallax tilt (lightweight)
     if (!reduced){
@@ -515,6 +526,57 @@
       go(0, true); play();
     })();
 
+    // Nav pill + smooth scroll with header offset
+    (function(){
+      const nav = document.getElementById('mainNav');
+      const pill = document.getElementById('navPill');
+      const links = [...nav.querySelectorAll('a')];
+      const sectionsById = Object.fromEntries(links.map(a => [a.dataset.target || a.getAttribute('href'), document.querySelector(a.dataset.target || a.getAttribute('href'))]));
+
+      function movePill(toEl){
+        if (!toEl) return;
+        const r = toEl.getBoundingClientRect();
+        const nr = nav.getBoundingClientRect();
+        pill.style.width = r.width + 'px';
+        pill.style.height = r.height + 'px';
+        pill.style.transform = `translate(${r.left - nr.left}px, ${r.top - nr.top}px)`;
+      }
+      function activate(a){
+        links.forEach(l=>l.classList.toggle('active', l===a));
+        movePill(a);
+      }
+      // Initial
+      requestAnimationFrame(()=>activate(links[0]));
+
+      // Smooth scroll with offset
+      links.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const sel = a.dataset.target || a.getAttribute('href');
+          const el = sectionsById[sel];
+          if (!el) return;
+          const y = el.getBoundingClientRect().top + window.pageYOffset - (document.querySelector('.header').offsetHeight - 6);
+          activate(a);
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          history.pushState(null, '', sel);
+          document.body.classList.remove('menu-open');
+        });
+      });
+
+      // Set active by scroll
+      const io2 = new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if (en.isIntersecting){
+            const a = links.find(l => (l.dataset.target || l.getAttribute('href')) === '#'+en.target.id);
+            if (a) activate(a);
+          }
+        });
+      }, {rootMargin:'-40% 0px -55% 0px', threshold:0.01});
+      Object.values(sectionsById).forEach(sec => sec && io2.observe(sec));
+
+      window.addEventListener('resize', ()=>movePill(nav.querySelector('a.active')));
+    })();
+
     // Lightbox with Zoom/Pan
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
@@ -540,12 +602,11 @@
     document.getElementById('lbZoomOut').addEventListener('click', ()=>{ scale = clamp(scale-0.25, 1, 4); if(scale===1){pos.x=pos.y=0} applyTransform(); });
     document.getElementById('lbZoomReset').addEventListener('click', ()=>{ resetZoom(); });
 
-    // Close mobile menu
+    // Close mobile menu on outside click
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.header') && document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
       }
-      if (e.target.matches('.nav a')) document.body.classList.remove('menu-open');
     });
   </script>
 </body>
