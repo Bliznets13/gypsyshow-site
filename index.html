@@ -55,7 +55,7 @@
     /* Scroll progress */
     .progress{position:fixed; top:0; left:0; height:3px; width:0%; background: linear-gradient(90deg, var(--rose), var(--gold), var(--violet)); z-index:1000; box-shadow:0 0 12px rgba(255,255,255,.4)}
 
-    /* Light cursor follower (smooth, lightweight) */
+    /* Light cursor follower */
     .cursor{
       position:fixed; left:0; top:0; width:20px; height:20px; border-radius:50%;
       border:1px solid rgba(255,255,255,.45);
@@ -86,8 +86,7 @@
     .nav{position:relative; display:flex; gap:10px; align-items:center; padding:6px; border-radius:16px; background: rgba(255,255,255,.05); backdrop-filter: blur(6px)}
     .nav a{
       position:relative; z-index:1; color:#e9deef; text-decoration:none; font-weight:600;
-      padding:10px 14px; border-radius:12px; transition:color .2s ease;
-      white-space:nowrap;
+      padding:10px 14px; border-radius:12px; transition:color .2s ease; white-space:nowrap;
     }
     .nav a:hover{color:#fff}
     .nav__pill{
@@ -95,8 +94,8 @@
       background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
       border:1px solid rgba(255,255,255,.25);
       box-shadow: 0 6px 20px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.08);
-      transition: transform .28s cubic-bezier(.2,.8,.2,1), width .2s ease, height .2s ease, opacity .3s ease;
-      z-index:0; pointer-events:none; opacity:1;
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), width .2s ease, height .2s ease;
+      z-index:0; pointer-events:none;
     }
     .burger{display:none; font-size:26px; border:none; background:transparent; color:#fff}
 
@@ -170,7 +169,7 @@
     .hero-carousel .track{display:flex; width:100%; height:100%; transition: transform .8s cubic-bezier(.2,.8,.2,1)}
     .hero-carousel .slide{min-width:100%; height:100%}
     .hero-carousel img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.1) contrast(1.05)}
-    .hero-carousel .nav{position:absolute; inset:auto 12px 12px auto; display:flex; gap:8px; z-index:2; background: rgba(0,0,0,.25); padding:6px 8px; border-radius:999px; border:1px solid var(--border); backdrop-filter: blur(6px)}
+    .hero-carousel .nav{position:absolute; right:12px; bottom:12px; display:flex; gap:8px; z-index:2; background: rgba(0,0,0,.25); padding:6px 8px; border-radius:999px; border:1px solid var(--border); backdrop-filter: blur(6px)}
     .hero-carousel .dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); box-shadow:0 0 0 1px rgba(255,255,255,.35) inset; transition:transform .2s, background .2s}
     .hero-carousel .dot.active{background: linear-gradient(135deg, var(--rose), var(--gold)); transform:scale(1.25)}
 
@@ -189,12 +188,12 @@
     .features{display:grid; gap:10px; padding-left:20px}
     .tilt{transform-style:preserve-3d; perspective:1000px; will-change:transform; transition:transform .12s ease}
 
-    /* VIDEO: 2 вертикальных ролика, аккуратнее по размеру */
+    /* VIDEO: 3 вертикальных ролика в ряд */
     .video-grid{
-      display:grid; grid-template-columns: repeat(2, 1fr); gap:20px; place-items:center;
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; place-items:center;
     }
     .video{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#000; box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center}
-    .video-vert{ aspect-ratio: 9 / 16; height: clamp(360px, 55vh, 620px); } /* задаём высоту, ширина подстроится */
+    .video-vert{ aspect-ratio: 9 / 16; height: clamp(360px, 55vh, 620px); }
     .video-vert video{ width:100%; height:100%; object-fit:cover; display:block; outline:none }
 
     /* Gallery */
@@ -241,12 +240,15 @@
     .to-top.show{opacity:1; pointer-events:auto}
 
     /* Responsive */
+    @media (max-width: 1100px){
+      .video-grid{grid-template-columns: repeat(2, 1fr);}
+    }
     @media (max-width: 980px){
       .hero__wrap{grid-template-columns:1fr}
-      .video-grid{grid-template-columns: 1fr}
       .section h2{font-size: clamp(28px, 8vw, 42px)}
       .logo{font-size:26px}
       .hero__text h1{font-size: clamp(26px, 8vw, 40px)}
+      .video-grid{grid-template-columns: 1fr;}
     }
     @media (max-width: 900px){
       .nav{display:none}
@@ -300,7 +302,7 @@
           <div class="slide"><img src="img/photo_05.jpg" alt="Цыгане на праздник 5"></div>
           <div class="slide"><img src="img/photo_06.jpg" alt="Цыгане на праздник 6"></div>
         </div>
-        <div class="nav" aria-hidden="true" style="position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.25);padding:6px 8px;border-radius:999px;border:1px solid var(--border);backdrop-filter:blur(6px)">
+        <div class="nav">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         </div>
@@ -355,20 +357,26 @@
     </div>
   </section>
 
-  <!-- VIDEO: 2 вертикальных ролика -->
+  <!-- VIDEO: 3 вертикальных ролика -->
   <section id="video" class="section themed" data-theme="rose-violet">
     <div class="container">
       <h2>Видео</h2>
       <div class="video-grid">
         <div class="video video-vert reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_01.jpg" playsinline>
+          <video controls preload="metadata" poster="video/clip1.jpg" playsinline>
             <source src="video/clip1.mp4" type="video/mp4">
             Ваш браузер не поддерживает тег video.
           </video>
         </div>
         <div class="video video-vert reveal tilt" data-tilt>
-          <video controls preload="metadata" poster="img/photo_02.jpg" playsinline>
+          <video controls preload="metadata" poster="video/clip2.jpg" playsinline>
             <source src="video/clip2.mp4" type="video/mp4">
+            Ваш браузер не поддерживает тег video.
+          </video>
+        </div>
+        <div class="video video-vert reveal tilt" data-tilt>
+          <video controls preload="metadata" poster="video/clip3.jpg" playsinline>
+            <source src="video/clip3.mp4" type="video/mp4">
             Ваш браузер не поддерживает тег video.
           </video>
         </div>
@@ -469,7 +477,7 @@
     }, {rootMargin:'0px 0px -12% 0px', threshold:.18});
     sections.forEach(sec=>io.observe(sec));
 
-    // Smooth cursor with a tiny lag (lightweight)
+    // Smooth cursor with tiny lag
     (function(){
       if (reduced) { document.getElementById('cursor')?.remove(); return; }
       const c = document.getElementById('cursor'); if (!c) return;
@@ -531,39 +539,25 @@
       const nav = document.getElementById('mainNav');
       const pill = document.getElementById('navPill');
       const links = [...nav.querySelectorAll('a')];
-      const sectionsById = Object.fromEntries(links.map(a => [a.dataset.target || a.getAttribute('href'), document.querySelector(a.dataset.target || a.getAttribute('href'))]));
-
-      function movePill(toEl){
-        if (!toEl) return;
-        const r = toEl.getBoundingClientRect();
-        const nr = nav.getBoundingClientRect();
-        pill.style.width = r.width + 'px';
-        pill.style.height = r.height + 'px';
+      const map = Object.fromEntries(links.map(a => [a.dataset.target || a.getAttribute('href'), document.querySelector(a.dataset.target || a.getAttribute('href'))]));
+      function movePill(a){
+        if (!a) return;
+        const r = a.getBoundingClientRect(), nr = nav.getBoundingClientRect();
+        pill.style.width = r.width + 'px'; pill.style.height = r.height + 'px';
         pill.style.transform = `translate(${r.left - nr.left}px, ${r.top - nr.top}px)`;
       }
-      function activate(a){
-        links.forEach(l=>l.classList.toggle('active', l===a));
-        movePill(a);
-      }
-      // Initial
+      function activate(a){ links.forEach(l=>l.classList.toggle('active', l===a)); movePill(a); }
       requestAnimationFrame(()=>activate(links[0]));
-
-      // Smooth scroll with offset
       links.forEach(a=>{
         a.addEventListener('click', (e)=>{
           e.preventDefault();
           const sel = a.dataset.target || a.getAttribute('href');
-          const el = sectionsById[sel];
-          if (!el) return;
+          const el = map[sel]; if (!el) return;
           const y = el.getBoundingClientRect().top + window.pageYOffset - (document.querySelector('.header').offsetHeight - 6);
-          activate(a);
-          window.scrollTo({ top: y, behavior: 'smooth' });
-          history.pushState(null, '', sel);
+          activate(a); window.scrollTo({ top: y, behavior: 'smooth' }); history.pushState(null, '', sel);
           document.body.classList.remove('menu-open');
         });
       });
-
-      // Set active by scroll
       const io2 = new IntersectionObserver((entries)=>{
         entries.forEach(en=>{
           if (en.isIntersecting){
@@ -572,8 +566,7 @@
           }
         });
       }, {rootMargin:'-40% 0px -55% 0px', threshold:0.01});
-      Object.values(sectionsById).forEach(sec => sec && io2.observe(sec));
-
+      Object.values(map).forEach(sec => sec && io2.observe(sec));
       window.addEventListener('resize', ()=>movePill(nav.querySelector('a.active')));
     })();
 
@@ -587,7 +580,7 @@
     function load(){ lbImg.src = imgs[idx].src; }
     function resetZoom(){ scale = 1; pos.x=0; pos.y=0; applyTransform(); }
     function applyTransform(){ lbImg.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${scale})`; }
-    function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
+    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
     imgs.forEach((img,i)=> img.addEventListener('click', ()=>openLb(i)));
     lb.querySelector('.lb-close').addEventListener('click', closeLb);
     lb.querySelector('.lb-prev').addEventListener('click', ()=>{ idx=(idx-1+imgs.length)%imgs.length; load(); resetZoom(); });
