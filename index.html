@@ -64,7 +64,7 @@
   }
   </script>
 
-  <!-- JSON-LD: FAQPage (для ПС) -->
+  <!-- JSON-LD: FAQPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -495,7 +495,7 @@
         </div>
 
         <button type="submit" class="btn btn--primary" id="bf-submit">Отправить</button>
-        <div class="success" id="bf-success">Спасибо за Ваше обращение. Мы скоро с Вами свяжемся!</div>
+        <div class="success" id="bf-success">Готовим сообщение...</div>
       </form>
     </div>
   </div>
@@ -626,7 +626,7 @@
       const canHevc = vProbe.canPlayType('video/mp4; codecs="hvc1.1.L120.B0"') || vProbe.canPlayType('video/mp4; codecs="hev1"');
       const canAvc  = vProbe.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') || vProbe.canPlayType('video/mp4; codecs="avc1"');
       const canWebm = vProbe.canPlayType('video/webm; codecs="vp9,opus"') || vProbe.canPlayType('video/webm; codecs="vp8,vorbis"');
-      const bust = (u)=> u + (u.includes('?') ? '&' : '?') + 'v=7';
+      const bust = (u)=> u + (u.includes('?') ? '&' : '?') + 'v=8';
       function headExists(url){ return fetch(url, {method:'HEAD', cache:'no-store'}).then(r=>r.ok).catch(()=>false); }
       async function chooseAndLoad(video){
         const base = video.dataset.base; if(!base) return;
@@ -705,14 +705,14 @@
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('show')) closeBooking(); });
 
     // Маска телефона: +7 (XXX) XXX-XX-XX
-    const phone = document.getElementById('bf-phone');
-    phone.addEventListener('focus', (e) => {
+    const phoneInput = document.getElementById('bf-phone');
+    phoneInput.addEventListener('focus', (e) => {
         if (!e.target.value) {
             e.target.value = '+7 (';
             setTimeout(() => e.target.setSelectionRange(4, 4), 0);
         }
     });
-    phone.addEventListener('input', (e) => {
+    phoneInput.addEventListener('input', (e) => {
         let val = e.target.value.replace(/\D/g, '');
         if (val.startsWith('8')) val = '7' + val.slice(1);
         if (!val.startsWith('7')) val = '7' + val;
@@ -726,9 +726,9 @@
         
         e.target.value = formatted;
     });
-    phone.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && e.target.value.replace(/\D/g, '').length === 1) {
-            e.target.value = '';
+    phoneInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && phoneInput.selectionStart <= 4) {
+            e.preventDefault();
         }
     });
 
@@ -739,16 +739,21 @@
 
       const name = document.getElementById('bf-name').value.trim();
       const city = document.getElementById('bf-city').value.trim();
-      const date = document.getElementById('bf-date').value;
-      const phoneText = phone.value.trim();
+      const dateValue = document.getElementById('bf-date').value;
+      const phoneText = phoneInput.value.trim();
       const successMsg = document.getElementById('bf-success');
       
-      if (!name || !city || !date || phoneText.length < 18){
+      if (!name || !city || !dateValue || phoneText.length < 18){
         alert('Пожалуйста, заполните все поля корректно.');
         return;
       }
+      
+      // --- ИСПРАВЛЕНИЕ ФОРМАТА ДАТЫ ---
+      const [year, month, day] = dateValue.split('-');
+      const formattedDate = `${day}.${month}.${year}`;
+      // --- КОНЕЦ ИСПРАВЛЕНИЯ ---
 
-      const message = `Заявка с сайта gypsy-show.ru:\n\nИмя: ${name}\nГород: ${city}\nДата: ${date}\nТелефон: ${phoneText}`;
+      const message = `Заявка с сайта gypsy-show.ru:\n\nИмя: ${name}\nГород: ${city}\nДата: ${formattedDate}\nТелефон: ${phoneText}`;
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/79282589678?text=${encodedMessage}`;
 
@@ -756,11 +761,13 @@
       window.open(whatsappUrl, '_blank');
 
       // Показываем сообщение об успехе и сбрасываем форму
+      successMsg.textContent = 'Спасибо! Ваше сообщение готово к отправке в WhatsApp.';
       successMsg.classList.add('show');
       setTimeout(() => {
           form.reset();
-          phone.value = '';
+          phoneInput.value = '';
           successMsg.classList.remove('show');
+          successMsg.textContent = 'Готовим сообщение...'; // Возвращаем исходный текст
           closeBooking();
       }, 4000); // Закрываем модальное окно через 4 секунды
     });
