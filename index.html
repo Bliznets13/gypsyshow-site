@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Цыгане на праздник — Краснодар, Сочи, Геленджик, Новороссийск, Анапа, Армавир, Ростов, Ялта, Симферополь, Ставрополь | Живой вокал и танцы</title>
-  <meta name="description" content="Цыганское шоу на свадьбы, юбилеи и корпоративы: живой вокал, танцы, интерактив. Выезжаем в Краснодар, Сочи, Геленджик, Новороссийск, Анапу, Армавир, Ростов, Ялту, Симферополь, Ставрополь и соседние города Краснодарского края, Крыма и Ставрополья. Бронирование: +7 (928) 258‑96‑78.">
+  <title>Цыгане на праздник — Краснодар, Сочи, Геленджик, Новороссийск, Анапа, Армавир, Ялта, Симферополь, Ставрополь | Живой вокал и танцы</title>
+  <meta name="description" content="Цыганское шоу на свадьбы, юбилеи и корпоративы: живой вокал, танцы, интерактив. Выезжаем в Краснодар, Сочи, Геленджик, Новороссийск, Анапу, Армавир, Ялту, Симферополь, Ставрополь и соседние города Краснодарского края, Крыма и Ставрополья. Бронирование: +7 (928) 258‑96‑78.">
   <link rel="alternate" hreflang="ru" href="https://www.gypsy-show.ru/">
 
   <!-- Fonts -->
@@ -31,7 +31,7 @@
   <meta name="twitter:description" content="Живой вокал и цыганские танцы. Свадьбы, юбилеи, корпоративы. Выезд по Краснодарскому краю, Крыму и Ставрополью.">
   <meta name="twitter:image" content="https://www.gypsy-show.ru/img/cover.jpg">
 
-  <!-- JSON-LD: PerformingGroup -->
+  <!-- JSON-LD: PerformingGroup (города + регионы) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,11 +58,11 @@
       {"@type": "AdministrativeArea", "name": "Республика Крым"},
       {"@type": "AdministrativeArea", "name": "Ставропольский край"}
     ],
-    "description": "Цыганское шоу на свадьбы, юбилеи и корпоративы: живой вокал, танцы, интерактив. Выезд: Краснодар, Сочи, Геленджик, Новороссийск, Анапа, Армавир, Ялта, Симферополь, Ставрополь и соседние города."
+    "description": "Цыганское шоу: живой вокал, танцы и интерактив. Выезд в Краснодар, Сочи, Геленджик, Новороссийск, Анапу, Армавир, Ялту, Симферополь, Ставрополь и соседние города."
   }
   </script>
 
-  <!-- JSON-LD: FAQPage -->
+  <!-- JSON-LD: FAQPage (для ПС). Отдельный видимый блок FAQ есть ниже -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -81,7 +81,7 @@
         "name": "Под какой формат подходит программа?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Свадьбы, юбилеи, корпоративы и городские праздники. Живой вокал, танцевальные номера, интерактив с гостями, возможна встреча с чаркой."
+          "text": "Свадьбы, юбилеи, корпоративы и городские праздники. Живой вокал, танцевальные номера, интерактив с гостями, по запросу — встреча с чаркой."
         }
       },
       {
@@ -104,7 +104,7 @@
   }
   </script>
 
-  <!-- JSON-LD: Video list (без дат) -->
+  <!-- JSON-LD: Video list (без обязательных дат загрузки) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -164,8 +164,7 @@
       border:1px solid rgba(255,255,255,.45);
       box-shadow:0 0 10px rgba(255,255,255,.25);
       transform:translate(-50%,-50%); pointer-events:none; z-index:999;
-      transition: opacity .3s ease;
-      mix-blend-mode:screen; opacity:.9;
+      transition: opacity .3s ease; mix-blend-mode:screen; opacity:.9;
     }
     .cursor-hide .cursor{opacity:0}
     @media (pointer:coarse), (hover:none){ .cursor{display:none !important} }
@@ -251,6 +250,11 @@
     .video-vert{ aspect-ratio: 9 / 16; height: clamp(360px, 55vh, 620px) }
     .video-vert video{ width:100%; height:100%; object-fit:cover; display:block; outline:none }
 
+    .faq{max-width:980px; margin:0 auto}
+    .faq details{background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:12px; padding:14px 18px; margin:10px 0; box-shadow:var(--shadow)}
+    .faq summary{cursor:pointer; font-weight:700}
+    .faq p{margin:.6em 0 0; color:var(--muted)}
+
     .gallery{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
     @media(min-width:1100px){ .gallery{grid-template-columns:repeat(3, 1fr)} }
     .gallery img{ width:100%; height:420px; object-fit:cover; border-radius:16px; border:1px solid var(--border); transform:translateZ(0); transition: transform .35s ease, box-shadow .35s ease, filter .35s ease; filter:saturate(1.12) contrast(1.06); box-shadow: 0 14px 30px rgba(0,0,0,.35); cursor:zoom-in }
@@ -279,6 +283,20 @@
 
     .to-top{position:fixed; right:18px; bottom:18px; z-index:20; opacity:0; pointer-events:none; transition:opacity .3s ease}
     .to-top.show{opacity:1; pointer-events:auto}
+
+    /* Modal (бронь даты) */
+    .modal{position:fixed; inset:0; background:rgba(8,4,12,.72); display:none; align-items:center; justify-content:center; z-index:200}
+    .modal.show{display:flex}
+    .modal__card{width:min(560px, 92vw); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); padding:22px; position:relative; backdrop-filter: blur(10px)}
+    .modal__title{margin:0 0 12px; font:700 26px "Playfair Display", serif}
+    .modal__close{position:absolute; right:12px; top:12px; width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--glass); color:#fff; cursor:pointer}
+    .form{display:grid; gap:12px; margin-top:8px}
+    .field{display:grid; gap:6px}
+    .field label{font-weight:600}
+    .input, .date, .select{width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.05); color:#fff; font-size:16px}
+    .hint{font-size:13px; color:var(--muted)}
+    .success{margin-top:10px; color:#a8ffcf; font-weight:600; display:none}
+    .success.show{display:block}
 
     @media (max-width: 1100px){ .video-grid{grid-template-columns: repeat(2, 1fr)} }
     @media (max-width: 980px){
@@ -313,6 +331,7 @@
         <a href="#program" data-target="#program">Программа</a>
         <a href="#video" data-target="#video">Видео</a>
         <a href="#gallery" data-target="#gallery">Галерея</a>
+        <a href="#faq" data-target="#faq">FAQ</a>
         <a href="#contacts" data-target="#contacts">Контакты</a>
       </nav>
 
@@ -341,7 +360,9 @@
       <div class="hero__text reveal">
         <h1 style="text-align:center;">Цыгане на праздник</h1>
         <p style="text-align:center;">Живой вокал и цыганские танцы для свадьбы, юбилея и корпоратива. Работаем на выезде: Краснодар, Сочи, Геленджик, Новороссийск, Анапа, Армавир, Ялта, Симферополь, Ставрополь — и соседние города.</p>
-        <div style="text-align:center;"><a href="#contacts" class="btn btn--primary">Забронировать дату</a></div>
+        <div style="text-align:center;">
+          <button class="btn btn--primary" id="openBooking">Забронировать дату</button>
+        </div>
       </div>
     </div>
   </section>
@@ -390,7 +411,7 @@
   <section id="video" class="section themed" data-theme="rose-violet">
     <div class="container">
       <h2>Видео</h2>
-      <p class="sub">Фрагменты выступлений: живой звук, танцы и драйвовая энергетика сцены.</p>
+    <p class="sub">Фрагменты выступлений: живой звук, танцы и драйвовая энергетика сцены.</p>
       <div class="video-grid">
         <div class="video video-vert reveal tilt" data-tilt>
           <video controls preload="metadata" playsinline poster="video/clip1.jpg" data-autoposter="1" data-base="video/clip1"></video>
@@ -401,6 +422,27 @@
         <div class="video video-vert reveal tilt" data-tilt>
           <video controls preload="metadata" playsinline poster="video/clip3.jpg" data-autoposter="1" data-base="video/clip3"></video>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ (видимый блок) -->
+  <section id="faq" class="section themed" data-theme="cyan-violet">
+    <div class="container">
+      <h2>Вопросы и ответы</h2>
+      <div class="faq">
+        <details class="reveal"><summary>В каких городах вы выступаете?</summary>
+          <p>Основные города: Краснодар, Сочи, Геленджик, Новороссийск, Анапа, Армавир, Ялта, Симферополь, Ставрополь. Также выезжаем в соседние города по Краснодарскому краю, Крыму и Ставрополью.</p>
+        </details>
+        <details class="reveal"><summary>Под какие события подходит программа?</summary>
+          <p>Свадьбы, юбилеи, корпоративы, городские праздники и тематические вечера. Программа гибкая: живой вокал, танцевальные выходы, интерактив, возможна встреча с чаркой.</p>
+        </details>
+        <details class="reveal"><summary>Сколько длится выступление и какой состав?</summary>
+          <p>Классический блок 20–40 минут. Состав — 4 солиста (вокал и танцы). При необходимости изменим длительность под тайминг площадки.</p>
+        </details>
+        <details class="reveal"><summary>Как узнать цену и свободные даты?</summary>
+          <p>Оставьте заявку через кнопку «Забронировать дату» или напишите в WhatsApp — ответим оперативно, подскажем варианты по бюджету и датам.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -426,12 +468,12 @@
       <h2>Контакты и бронирование</h2>
       <p class="sub">Закажите цыган на праздник в Краснодаре, Сочи, Геленджике, Новороссийске, Анапе, Армавире, Ялте, Симферополе, Ставрополе и соседних городах. Подберём программу и длительность под вашу площадку и сценарий.</p>
       <div class="contacts reveal" style="text-align:center;">
-        <p>Телефон: <a href="tel:+79282589678">+7 (928) 258‑96‑78</a></p>
-        <p>Телефон: <a href="tel:+79284072037">+7 (928) 407‑20‑37</a></p>
+        <p>Телефон / WhatsApp: <a href="https://wa.me/79282589678" target="_blank" rel="noopener">+7 (928) 258‑96‑78</a></p>
+        <p>Телефон / WhatsApp: <a href="https://wa.me/79284072037" target="_blank" rel="noopener">+7 (928) 407‑20‑37</a></p>
         <p>Instagram: <a href="https://instagram.com/tsigane_na_prazdnik" target="_blank" rel="noopener">tsigane_na_prazdnik</a></p>
         <p>ВКонтакте: <a href="https://vk.com/tsigane_na_prazdnik" target="_blank" rel="noopener">vk.com/tsigane_na_prazdnik</a></p>
         <div style="margin-top:18px">
-          <a href="#about" class="btn btn--primary">Посмотреть программу</a>
+          <button class="btn btn--primary" id="openBooking2">Забронировать дату</button>
         </div>
       </div>
     </div>
@@ -443,6 +485,40 @@
       <div class="small">Сделано с любовью к музыке</div>
     </div>
   </footer>
+
+  <!-- MODAL: Бронирование даты -->
+  <div class="modal" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="bookingTitle">
+    <div class="modal__card">
+      <button class="modal__close" id="modalClose" aria-label="Закрыть">✕</button>
+      <h3 class="modal__title" id="bookingTitle">Забронировать дату</h3>
+      <form class="form" id="bookingForm" novalidate>
+        <div class="field">
+          <label for="bf-name">Имя</label>
+          <input class="input" id="bf-name" name="name" type="text" placeholder="Ваше имя" required>
+        </div>
+        <div class="field">
+          <label for="bf-city">Город мероприятия</label>
+          <input class="input" id="bf-city" name="city" type="text" placeholder="Например: Сочи" required>
+        </div>
+        <div class="field">
+          <label for="bf-date">Дата</label>
+          <input class="date" id="bf-date" name="date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="bf-phone">Контактный телефон</label>
+          <input class="input" id="bf-phone" name="phone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" required>
+          <div class="hint">Пример: +7 (928) 259‑96‑78</div>
+        </div>
+
+        <!-- скрытые поля для письма -->
+        <input type="hidden" name="to" value="novoselpa@yandex.ru">
+        <input type="hidden" name="source" value="gypsy-show.ru">
+
+        <button type="submit" class="btn btn--primary" id="bf-submit">Отправить</button>
+        <div class="success" id="bf-success">Спасибо за Ваше обращение. Мы скоро с Вами свяжемся!</div>
+      </form>
+    </div>
+  </div>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
@@ -460,10 +536,16 @@
   <div class="to-top" id="toTop"><a class="btn btn--outlined" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</a></div>
 
   <script>
+    // ========= CONFIG =========
+    // Если хотите, чтобы заявка приходила на почту автоматически с GitHub Pages,
+    // создайте форму в Formspree и вставьте сюда её endpoint (пример: "https://formspree.io/f/abcdwxyz").
+    // Иначе сработает безопасный резерв: откроется окно email-клиента с готовым письмом.
+    const FORM_ENDPOINT = ""; // вставьте ваш Formspree endpoint (оставьте пустым для резервного mailto)
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouch = window.matchMedia('(pointer:coarse), (hover:none)').matches;
 
-    /* Progress + ToTop */
+    // Progress + ToTop
     const progress = document.getElementById('progress');
     const onScroll = () => {
       const y = window.scrollY || document.documentElement.scrollTop;
@@ -473,7 +555,7 @@
     };
     onScroll(); window.addEventListener('scroll', onScroll);
 
-    /* Ripple */
+    // Ripple
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.btn'); if (!btn) return;
       const old = btn.querySelector('.ripple'); if (old) old.remove();
@@ -485,7 +567,7 @@
       btn.appendChild(s); setTimeout(()=>s.remove(), 650);
     });
 
-    /* Reveal */
+    // Reveal
     const sections = document.querySelectorAll('.section');
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((en)=>{
@@ -498,7 +580,7 @@
     }, {rootMargin:'0px 0px -12% 0px', threshold:.18});
     sections.forEach(sec=>io.observe(sec));
 
-    /* Cursor (desktop only) */
+    // Cursor (desktop)
     (function(){
       if (reduced || isTouch) { document.getElementById('cursor')?.remove(); return; }
       const c = document.getElementById('cursor'); if (!c) return;
@@ -510,7 +592,7 @@
       ['mouseenter','focus','mouseup'].forEach(ev=>window.addEventListener(ev, ()=>document.body.classList.remove('cursor-hide')));
     })();
 
-    /* Parallax tilt (desktop only) */
+    // Tilt (desktop)
     if (!reduced && !isTouch){
       document.querySelectorAll('[data-tilt]').forEach(el=>{
         el.addEventListener('mousemove', (e)=>{
@@ -524,7 +606,7 @@
       });
     }
 
-    /* HERO carousel */
+    // HERO carousel
     (function(){
       const root = document.getElementById('heroCarousel'); if (!root) return;
       const track = root.querySelector('.track');
@@ -550,7 +632,7 @@
       go(0, true); play();
     })();
 
-    /* Nav pill + smooth scroll */
+    // Nav pill + smooth scroll
     (function(){
       const nav = document.getElementById('mainNav'), pill = document.getElementById('navPill');
       const links = [...nav.querySelectorAll('a')];
@@ -564,13 +646,13 @@
       window.addEventListener('resize', ()=>movePill(nav.querySelector('a.active')));
     })();
 
-    /* Видео: умный выбор источника (H.264/WebM) */
+    // Видео: выбор источника (HEVC/AVC/WebM) + кэш-бастинг
     (function(){
       const vProbe = document.createElement('video');
       const canHevc = vProbe.canPlayType('video/mp4; codecs="hvc1.1.L120.B0"') || vProbe.canPlayType('video/mp4; codecs="hev1"');
       const canAvc  = vProbe.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') || vProbe.canPlayType('video/mp4; codecs="avc1"');
       const canWebm = vProbe.canPlayType('video/webm; codecs="vp9,opus"') || vProbe.canPlayType('video/webm; codecs="vp8,vorbis"');
-      const bust = (u)=> u + (u.includes('?') ? '&' : '?') + 'v=6';
+      const bust = (u)=> u + (u.includes('?') ? '&' : '?') + 'v=7';
 
       function headExists(url){ return fetch(url, {method:'HEAD', cache:'no-store'}).then(r=>r.ok).catch(()=>false); }
       function tryLoad(video, url){
@@ -608,7 +690,7 @@
       document.querySelectorAll('video[data-base]').forEach(vid=>chooseAndLoad(vid));
     })();
 
-    /* Автогенерация постеров. Если указанный poster не найден — пробуем .jpg/.jpeg, иначе делаем скрин с ~1с */
+    // Постеры: пробуем .jpg/.jpeg, иначе делаем скрин с ~1с
     (function(){
       const videos = document.querySelectorAll('video[data-autoposter]');
       videos.forEach(v => {
@@ -618,7 +700,6 @@
         (async ()=>{
           const ok = await tryLoad(p);
           if (ok) return;
-          // попробовать альтернативное расширение
           if (p.endsWith('.jpg')) {
             const alt = p.replace(/\.jpg(\?.*)?$/i, '.jpeg');
             if (await tryLoad(alt)) { v.setAttribute('poster', alt); return; }
@@ -655,7 +736,7 @@
       }
     })();
 
-    /* Lightbox (gallery) */
+    // Lightbox
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const imgs = [...document.querySelectorAll('.gallery img')];
@@ -670,7 +751,99 @@
     lb.querySelector('.lb-next').addEventListener('click', ()=>{ idx=(idx+1)%imgs.length; load(); resetZoom(); });
     lb.addEventListener('click', (e)=>{ if (e.target===lb) closeLb(); });
 
-    /* Close mobile menu outside */
+    // ======= Modal: booking =======
+    const modal = document.getElementById('bookingModal');
+    const openBooking = ()=>{ modal.classList.add('show'); document.body.style.overflow='hidden'; document.getElementById('bf-name').focus(); };
+    const closeBooking = ()=>{ modal.classList.remove('show'); document.body.style.overflow=''; };
+    document.getElementById('openBooking').addEventListener('click', openBooking);
+    document.getElementById('openBooking2').addEventListener('click', openBooking);
+    document.getElementById('modalClose').addEventListener('click', closeBooking);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeBooking(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('show')) closeBooking(); });
+
+    // Маска телефона: +7 (XXX) XXX-XX-XX, ввод после +7
+    const phone = document.getElementById('bf-phone');
+    function formatPhone(raw){
+      let d = raw.replace(/\D/g,'');
+      if (d.startsWith('8')) d = '7' + d.slice(1);
+      if (!d.startsWith('7')) d = '7' + d; // принудительно РФ
+      d = d.slice(0, 11); // +7 и ещё 10 цифр
+      const p = d.slice(1); // после 7
+      const a = p.slice(0,3);
+      const b = p.slice(3,6);
+      const c = p.slice(6,8);
+      const e = p.slice(8,10);
+      let out = '+7';
+      if (a) out += ' (' + a.padEnd(3, '_') + ')';
+      else out += ' (___)';
+      out += ' ';
+      if (b) out += (b.padEnd(3,'_')); else out += '___';
+      out += '-';
+      if (c) out += (c.padEnd(2,'_')); else out += '__';
+      out += '-';
+      if (e) out += (e.padEnd(2,'_')); else out += '__';
+      return out;
+    }
+    function setPhone(val){ phone.value = formatPhone(val || phone.value || '+7'); }
+    phone.addEventListener('focus', ()=>{ if(!phone.value) setPhone('+7'); });
+    phone.addEventListener('input', ()=> setPhone(phone.value));
+    phone.addEventListener('keydown', (e)=>{
+      if ((e.key==='Backspace' || e.key==='Delete') && phone.selectionStart<=3){
+        e.preventDefault(); setPhone('+7'); phone.setSelectionRange(phone.value.length, phone.value.length);
+      }
+    });
+
+    // Отправка формы (Formspree или резервный mailto)
+    const form = document.getElementById('bookingForm');
+    const success = document.getElementById('bf-success');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      success.classList.remove('show');
+
+      const name = document.getElementById('bf-name').value.trim();
+      const city = document.getElementById('bf-city').value.trim();
+      const date = document.getElementById('bf-date').value;
+      const phoneVal = phone.value.replace(/_/g,'').trim();
+      if (!name || !city || !date || phoneVal.length < 18){ // +7 (xxx) xxx-xx-xx = 18 символов
+        alert('Пожалуйста, заполните все поля корректно.');
+        return;
+      }
+
+      const payload = {
+        name, city, date,
+        phone: phoneVal,
+        to: 'novoselpa@yandex.ru',
+        page: location.href
+      };
+
+      if (FORM_ENDPOINT){
+        try{
+          const r = await fetch(FORM_ENDPOINT, {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body: JSON.stringify(payload)
+          });
+          if (!r.ok) throw new Error('Send failed');
+          success.classList.add('show');
+          form.reset();
+          setPhone('+7');
+          return;
+        }catch(err){
+          console.warn('Form endpoint error, fallback to mailto', err);
+        }
+      }
+      // Резерв: открываем email‑клиент с готовым письмом
+      const subject = encodeURIComponent('Заявка: бронирование даты (gypsy-show.ru)');
+      const body = encodeURIComponent(
+        `Имя: ${name}\nГород: ${city}\nДата: ${date}\nТелефон: ${phoneVal}\nСтраница: ${location.href}`
+      );
+      window.location.href = `mailto:novoselpa@yandex.ru?subject=${subject}&body=${body}`;
+      success.classList.add('show');
+      form.reset();
+      setPhone('+7');
+    });
+
+    // Закрытие мобильного меню при клике вне шапки
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.header') && document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
