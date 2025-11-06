@@ -106,7 +106,7 @@
   }
   </script>
 
-  <!-- JSON-LD: Video list (без дат загрузки) -->
+  <!-- JSON-LD: Video list -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -494,11 +494,6 @@
           <div class="hint">Пример: +7 (928) 259‑96‑78</div>
         </div>
 
-        <!-- скрытые поля (для письма в FormSubmit) -->
-        <input type="hidden" name="_subject" value="Заявка: бронирование даты (gypsy-show.ru)">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-
         <button type="submit" class="btn btn--primary" id="bf-submit">Отправить</button>
         <div class="success" id="bf-success">Спасибо за Ваше обращение. Мы скоро с Вами свяжемся!</div>
       </form>
@@ -521,11 +516,6 @@
   <div class="to-top" id="toTop"><a class="btn btn--outlined" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</a></div>
 
   <script>
-    // ====== CONFIG: Email отправка через FormSubmit (без бэкенда) ======
-    // AJAX endpoint: https://formsubmit.co/ajax/ВАШ_EMAIL
-    // Для вашего случая заявка уходит сразу на novoselpa@yandex.ru
-    const FORM_AJAX_ENDPOINT = "https://formsubmit.co/ajax/novoselpa@yandex.ru";
-
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouch = window.matchMedia('(pointer:coarse), (hover:none)').matches;
 
@@ -630,29 +620,14 @@
       window.addEventListener('resize', ()=>movePill(nav.querySelector('a.active')));
     })();
 
-    // Видео: выбор источника (HEVC/AVC/WebM) + кэш-бастинг
+    // Видео: выбор источника + кэш-бастинг
     (function(){
       const vProbe = document.createElement('video');
       const canHevc = vProbe.canPlayType('video/mp4; codecs="hvc1.1.L120.B0"') || vProbe.canPlayType('video/mp4; codecs="hev1"');
       const canAvc  = vProbe.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') || vProbe.canPlayType('video/mp4; codecs="avc1"');
       const canWebm = vProbe.canPlayType('video/webm; codecs="vp9,opus"') || vProbe.canPlayType('video/webm; codecs="vp8,vorbis"');
       const bust = (u)=> u + (u.includes('?') ? '&' : '?') + 'v=7';
-
       function headExists(url){ return fetch(url, {method:'HEAD', cache:'no-store'}).then(r=>r.ok).catch(()=>false); }
-      function tryLoad(video, url){
-        return new Promise((resolve)=>{
-          let settled = false;
-          const ok=()=>{ settled=true; cleanup(); resolve(true); };
-          const bad=()=>{ cleanup(); resolve(false); };
-          const cleanup=()=>{ video.removeEventListener('loadeddata', ok); video.removeEventListener('error', bad); video.removeEventListener('stalled', bad); };
-          video.addEventListener('loadeddata', ok, {once:true});
-          video.addEventListener('error', bad, {once:true});
-          video.addEventListener('stalled', bad, {once:true});
-          video.src = url; video.load();
-          setTimeout(()=>{ if(!settled) { cleanup(); resolve(video.readyState >= 2); } }, 4500);
-        });
-      }
-
       async function chooseAndLoad(video){
         const base = video.dataset.base; if(!base) return;
         const candidates = [];
@@ -667,14 +642,13 @@
         }
         for (const url of candidates){
           if (!(await headExists(url))) continue;
-          if (await tryLoad(video, url)) return;
+          video.src = url; return;
         }
       }
-
       document.querySelectorAll('video[data-base]').forEach(vid=>chooseAndLoad(vid));
     })();
 
-    // Постеры: пробуем .jpg/.jpeg, иначе скрин с ~1с
+    // Постеры: пробуем .jpg/.jpeg, иначе скрин
     (function(){
       const videos = document.querySelectorAll('video[data-autoposter]');
       videos.forEach(v => {
@@ -682,23 +656,15 @@
         if (!p) return genPoster(v);
         const tryLoad = (src)=> new Promise(res=>{ const img=new Image(); img.onload=()=>res(true); img.onerror=()=>res(false); img.src = src + (src.includes('?')?'&':'?') + 't=' + Date.now(); });
         (async ()=>{
-          const ok = await tryLoad(p);
-          if (ok) return;
-          if (p.endsWith('.jpg')) {
-            const alt = p.replace(/\.jpg(\?.*)?$/i, '.jpeg');
-            if (await tryLoad(alt)) { v.setAttribute('poster', alt); return; }
-          } else if (p.endsWith('.jpeg')) {
-            const alt = p.replace(/\.jpeg(\?.*)?$/i, '.jpg');
-            if (await tryLoad(alt)) { v.setAttribute('poster', alt); return; }
-          }
+          if (await tryLoad(p)) return;
+          if (p.endsWith('.jpg')) { const alt = p.replace(/\.jpg(\?.*)?$/i, '.jpeg'); if (await tryLoad(alt)) { v.setAttribute('poster', alt); return; } }
+          else if (p.endsWith('.jpeg')) { const alt = p.replace(/\.jpeg(\?.*)?$/i, '.jpg'); if (await tryLoad(alt)) { v.setAttribute('poster', alt); return; } }
           genPoster(v);
         })();
       });
-
       function genPoster(v){
-        if (v.readyState < 1){
-          v.addEventListener('loadedmetadata', ()=>capture(v), {once:true});
-        } else capture(v);
+        if (v.readyState < 1){ v.addEventListener('loadedmetadata', ()=>capture(v), {once:true}); }
+        else capture(v);
       }
       function capture(v){
         const dur = isFinite(v.duration) ? v.duration : 0;
@@ -707,12 +673,7 @@
           const w = v.videoWidth || 720, h = v.videoHeight || 1280;
           const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
           const ctx = canvas.getContext('2d');
-          try{
-            ctx.drawImage(v, 0, 0, w, h);
-            v.setAttribute('poster', canvas.toDataURL('image/jpeg', 0.85));
-            if (!v.paused) v.pause();
-            v.currentTime = 0;
-          }catch(e){}
+          try{ ctx.drawImage(v, 0, 0, w, h); v.setAttribute('poster', canvas.toDataURL('image/jpeg', 0.85)); if (!v.paused) v.pause(); v.currentTime = 0; }catch(e){}
         };
         const once = ()=>{ v.removeEventListener('seeked', once); onSeeked(); };
         v.addEventListener('seeked', once);
@@ -745,103 +706,63 @@
 
     // Маска телефона: +7 (XXX) XXX-XX-XX
     const phone = document.getElementById('bf-phone');
-    function digitsOnly(v){ return (v||'').replace(/\D/g,''); }
-    function formatByDigits(d){ // d — 10 цифр макс (после 7)
-      d = d.slice(0,10);
-      const a = d.slice(0,3), b = d.slice(3,6), c = d.slice(6,8), e = d.slice(8,10);
-      let out = '+7 (';
-      out += a;
-      if (a.length===3) out += ')';
-      if (b.length) out += (a.length===3 ? ' ' : '') + b;
-      if (c.length) out += '-' + c;
-      if (e.length) out += '-' + e;
-      return out;
-    }
-    function setCaret(el, pos){ requestAnimationFrame(()=>{ el.setSelectionRange(pos, pos); }); }
-
-    phone.addEventListener('focus', ()=>{
-      if (!phone.value) { phone.value = '+7 ('; setCaret(phone, 4); }
-      else {
-        // если курсор в конце — ставим после "+7 ("
-        setCaret(phone, Math.max(4, phone.selectionEnd || phone.value.length));
-      }
+    phone.addEventListener('focus', (e) => {
+        if (!e.target.value) {
+            e.target.value = '+7 (';
+            setTimeout(() => e.target.setSelectionRange(4, 4), 0);
+        }
+    });
+    phone.addEventListener('input', (e) => {
+        let val = e.target.value.replace(/\D/g, '');
+        if (val.startsWith('8')) val = '7' + val.slice(1);
+        if (!val.startsWith('7')) val = '7' + val;
+        val = val.slice(0, 11);
+        
+        let formatted = '+7 (';
+        if (val.length > 1) formatted += val.substring(1, 4);
+        if (val.length >= 5) formatted += ') ' + val.substring(4, 7);
+        if (val.length >= 8) formatted += '-' + val.substring(7, 9);
+        if (val.length >= 10) formatted += '-' + val.substring(9, 11);
+        
+        e.target.value = formatted;
+    });
+    phone.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && e.target.value.replace(/\D/g, '').length === 1) {
+            e.target.value = '';
+        }
     });
 
-    phone.addEventListener('paste', (e)=>{
-      e.preventDefault();
-      const pasted = (e.clipboardData || window.clipboardData).getData('text');
-      let d = digitsOnly(pasted);
-      if (d.startsWith('8')) d = '7' + d.slice(1);
-      if (d.startsWith('7')) d = d.slice(1);
-      phone.value = formatByDigits(d) || '+7 (';
-      setCaret(phone, phone.value.length);
-    });
-
-    phone.addEventListener('input', ()=>{
-      // Берём только цифры после первой 7
-      let d = digitsOnly(phone.value);
-      if (d.startsWith('8')) d = '7' + d.slice(1);
-      if (d.startsWith('7')) d = d.slice(1);
-      phone.value = formatByDigits(d) || '+7 (';
-      // курсор всегда в конце (удобнее для ввода подряд)
-      setCaret(phone, phone.value.length);
-    });
-
-    phone.addEventListener('keydown', (e)=>{
-      // Не даём удалить префикс "+7 ("
-      if ((e.key==='Backspace' || e.key==='Delete') && phone.selectionStart <= 4){
-        e.preventDefault();
-        setCaret(phone, 4);
-      }
-    });
-
-    // Отправка формы AJAX в FormSubmit (без закрытия модалки, без перехода со страницы)
+    // Отправка формы в WhatsApp
     const form = document.getElementById('bookingForm');
-    const success = document.getElementById('bf-success');
-    form.addEventListener('submit', async (e)=>{
+    form.addEventListener('submit', (e)=>{
       e.preventDefault();
-      success.classList.remove('show');
 
       const name = document.getElementById('bf-name').value.trim();
       const city = document.getElementById('bf-city').value.trim();
       const date = document.getElementById('bf-date').value;
       const phoneText = phone.value.trim();
-
-      // валидация: ожидаем шаблон +7 (XXX) XXX-XX-XX => длина не меньше 18
+      const successMsg = document.getElementById('bf-success');
+      
       if (!name || !city || !date || phoneText.length < 18){
         alert('Пожалуйста, заполните все поля корректно.');
         return;
       }
 
-      const payload = {
-        _subject: 'Заявка: бронирование даты (gypsy-show.ru)',
-        _template: 'table',
-        _captcha: 'false',
-        name, city, date, phone: phoneText, page: location.href
-      };
+      const message = `Заявка с сайта gypsy-show.ru:\n\nИмя: ${name}\nГород: ${city}\nДата: ${date}\nТелефон: ${phoneText}`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/79282589678?text=${encodedMessage}`;
 
-      const btn = document.getElementById('bf-submit');
-      btn.disabled = true; btn.textContent = 'Отправляем...';
+      // Открываем WhatsApp в новой вкладке
+      window.open(whatsappUrl, '_blank');
 
-      try{
-        const res = await fetch(FORM_AJAX_ENDPOINT, {
-          method:'POST',
-          headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
-          body: JSON.stringify(payload)
-        });
-        // FormSubmit возвращает 200/OK с JSON
-        if (res.ok){
-          success.classList.add('show');
+      // Показываем сообщение об успехе и сбрасываем форму
+      successMsg.classList.add('show');
+      setTimeout(() => {
           form.reset();
-          phone.value = '+7 ('; setCaret(phone, 4);
-        } else {
-          alert('Не удалось отправить заявку. Попробуйте позже или напишите в WhatsApp.');
-        }
-      }catch(err){
-        alert('Ошибка сети. Напишите нам в WhatsApp или попробуйте ещё раз.');
-      }finally{
-        btn.disabled = false; btn.textContent = 'Отправить';
-      }
+          phone.value = '';
+          successMsg.classList.remove('show');
+          closeBooking();
+      }, 4000); // Закрываем модальное окно через 4 секунды
     });
 
     // Закрытие мобильного меню при клике вне шапки
